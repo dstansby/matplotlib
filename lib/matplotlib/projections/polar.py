@@ -613,8 +613,13 @@ cbook.simple_linear_interpolation on the data before passing to matplotlib.""")
             theta = theta * (180.0 / np.pi)
 
         theta /= math.pi
-        return ('\N{GREEK SMALL LETTER THETA}=%0.3f\N{GREEK SMALL LETTER PI} '
-                '(%0.3f\N{DEGREE SIGN}), r=%0.3f') % (theta, theta * 180.0, r)
+        # \u03b8: lower-case theta
+        # \u03c0: lower-case pi
+        # \u00b0: degree symbol
+        s = '\u03b8=%0.3f\u03c0 (%0.3f\u00b0), r=%0.3f' %\
+            (theta, theta * 180.0, r)
+        s = s.encode('utf-8')
+        return s
 
     def get_data_ratio(self):
         '''
