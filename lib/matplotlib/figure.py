@@ -17,6 +17,7 @@ from __future__ import (absolute_import, division, print_function,
 import six
 
 import warnings
+import inspect
 from operator import itemgetter
 
 import numpy as np
@@ -1663,6 +1664,13 @@ class Figure(Artist):
             tight bbox is calculated.
 
         """
+
+        allowed_args, _, _, _ = inspect.getargspec(self.canvas.print_figure)
+        print(set(allowed_args))
+        if not set(kwargs).issubset(set(allowed_args)):
+            raise ValueError('The following provided keyword argument names '
+                             'are not supported by savefig:',
+                             set(kwargs).difference(set(allowed_args)))
 
         kwargs.setdefault('dpi', rcParams['savefig.dpi'])
         frameon = kwargs.pop('frameon', rcParams['savefig.frameon'])
