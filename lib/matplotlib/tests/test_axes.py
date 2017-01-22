@@ -468,8 +468,8 @@ def test_polar_units():
     deg = units.UnitDbl(1.0, "deg")
     km = units.UnitDbl(1.0, "km")
 
-    x1 = [pi/6.0, pi/4.0, pi/3.0, pi/2.0]
-    x2 = [30.0*deg, 45.0*deg, 60.0*deg, 90.0*deg]
+    x1 = [pi / 6.0, pi / 4.0, pi / 3.0, pi / 2.0]
+    x2 = [30.0 * deg, 45.0 * deg, 60.0 * deg, 90.0 * deg]
 
     y1 = [1.0, 2.0, 3.0, 4.0]
     y2 = [4.0, 3.0, 2.0, 1.0]
@@ -484,11 +484,13 @@ def test_polar_units():
     fig = plt.figure()
 
     # make sure runits and theta units work
-    y1 = [y*km for y in y1]
+    y1 = [y * km for y in y1]
     plt.polar(x2, y1, color="blue", thetaunits="rad", runits="km")
-    assert isinstance(plt.gca().get_xaxis().get_major_formatter(), units.UnitDblFormatter)
+    assert isinstance(plt.gca().get_xaxis().get_major_formatter(),
+                      units.UnitDblFormatter)
 
 
+@cleanup
 def test_polar_format_coord():
     import matplotlib.testing.jpl_units as units
     units.register()
@@ -500,7 +502,7 @@ def test_polar_format_coord():
     ax = plt.subplot(111, polar=True)
 
     # Make sure this doesn't throw any exceptions
-    ax.format_coord( 30.0*deg, 4.0*km )
+    ax.format_coord(30.0 * deg, 4.0 * km)
 
 
 @image_comparison(baseline_images=['polar_rgrids'])
@@ -516,16 +518,16 @@ def test_polar_rgrids():
     fig = plt.figure()
 
     ax1 = plt.subplot(221, polar=True)
-    ax1.set_rgrids([45*deg, 90*deg], angle=60.0*deg)
+    ax1.set_rgrids([45 * deg, 90 * deg], angle=60 * deg)
 
     ax2 = plt.subplot(222, polar=True)
-    ax2.set_rgrids([pi/4*rad, pi/2*rad], angle=60.0*deg)
+    ax2.set_rgrids([pi / 4 * rad, pi / 2 * rad], angle=60 * deg)
 
     ax3 = plt.subplot(223, polar=True)
-    ax3.set_rgrids([45*deg, 90*deg], angle=pi/3*rad)
+    ax3.set_rgrids([45 * deg, 90 * deg], angle=pi / 3 * rad)
 
     ax4 = plt.subplot(224, polar=True)
-    ax4.set_rgrids([pi/4*rad, pi/2*rad], angle=pi/3*rad)
+    ax4.set_rgrids([pi / 4 * rad, pi / 2 * rad], angle=pi / 3 * rad)
 
 
 @image_comparison(baseline_images=['polar_rticks'])
@@ -541,15 +543,15 @@ def test_polar_rticks():
     fig = plt.figure()
 
     ax = plt.subplot(111, polar=True)
-    ax.set_rticks([1.5*km, 3.0*km, 4.5*km])
+    ax.set_rticks([1.5 * km, 3.0 * km, 4.5 * km])
 
-    x1 = [30.0*deg, 45.0*deg, 60.0*deg, 90.0*deg]
-    y1 = [1.0*km, 2.0*km, 3.0*km, 4.0*km]
+    x1 = [30.0 * deg, 45.0 * deg, 60.0 * deg, 90.0 * deg]
+    y1 = [1.0 * km, 2.0 * km, 3.0 * km, 4.0 * km]
 
-    ax.plot( x1, y1 )
+    ax.plot(x1, y1)
 
 
-@image_comparison(baseline_images=['polar_teta_offset'])
+@image_comparison(baseline_images=['polar_theta_offset'])
 def test_polar_theta_offset():
     import matplotlib.testing.jpl_units as units
     units.register()
@@ -562,13 +564,13 @@ def test_polar_theta_offset():
     fig = plt.figure()
 
     ax1 = plt.subplot(211, polar=True)
-    ax1.set_theta_offset(45*deg)
+    ax1.set_theta_offset(45 * deg)
 
     ax2 = plt.subplot(212, polar=True)
-    ax2.set_theta_offset(pi/4*rad)
+    ax2.set_theta_offset(pi / 4 * rad)
 
 
-@image_comparison(baseline_images=['polar_tetagrids'])
+@image_comparison(baseline_images=['polar_thetagrids'])
 def test_polar_thetagrids():
     import matplotlib.testing.jpl_units as units
     units.register()
@@ -581,10 +583,10 @@ def test_polar_thetagrids():
     fig = plt.figure()
 
     ax1 = plt.subplot(311, polar=True)
-    ax1.set_thetagrids([90*deg, 180*deg])
+    ax1.set_thetagrids([90 * deg, 180 * deg])
 
     ax2 = plt.subplot(312, polar=True)
-    ax2.set_thetagrids([pi/2*rad, pi*rad])
+    ax2.set_thetagrids([pi / 2 * rad, pi * rad])
 
     ax3 = plt.subplot(313, polar=True)
     ax3.set_thetagrids([90.0, 180.0])
