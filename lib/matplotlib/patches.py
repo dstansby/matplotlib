@@ -1224,6 +1224,7 @@ class FancyArrow(Polygon):
             length = distance
         else:
             length = distance + head_length
+
         if not length:
             verts = []  # display nothing if empty
         else:
@@ -4021,7 +4022,6 @@ class FancyArrowPatch(Patch):
                  shrinkB=2,
                  mutation_scale=1,
                  mutation_aspect=None,
-                 dpi_cor=1,
                  **kwargs):
         """
         If *posA* and *posB* are given, a path connecting two points is
@@ -4085,9 +4085,6 @@ class FancyArrowPatch(Patch):
             the mutation and the mutated box will be stretched by the inverse
             of it.
 
-        dpi_cor : scalar, optional (defualt: 1)
-            dpi_cor is currently used for linewidth-related things and shrink
-            factor. Mutation scale is affected by this.
 
         Notes
         -----
@@ -4121,9 +4118,7 @@ class FancyArrowPatch(Patch):
         self._mutation_scale = mutation_scale
         self._mutation_aspect = mutation_aspect
 
-        self.set_dpi_cor(dpi_cor)
-
-    def set_dpi_cor(self, dpi_cor):
+    def _set_dpi_cor(self, dpi_cor):
         """
         dpi_cor is currently used for linewidth-related things and
         shrink factor. Mutation scale is affected by this.
@@ -4135,7 +4130,7 @@ class FancyArrowPatch(Patch):
         self._dpi_cor = dpi_cor
         self.stale = True
 
-    def get_dpi_cor(self):
+    def _get_dpi_cor(self):
         """
         dpi_cor is currently used for linewidth-related things and
         shrink factor. Mutation scale is affected by this.
@@ -4313,7 +4308,7 @@ class FancyArrowPatch(Patch):
         Return the mutated path of the arrow in display coordinates.
         """
 
-        dpi_cor = self.get_dpi_cor()
+        dpi_cor = self._get_dpi_cor()
 
         if self._posA_posB is not None:
             posA = self.get_transform().transform_point(self._posA_posB[0])
@@ -4379,9 +4374,7 @@ class FancyArrowPatch(Patch):
 
         # FIXME : dpi_cor is for the dpi-dependecy of the
         # linewidth. There could be room for improvement.
-        #
-        # dpi_cor = renderer.points_to_pixels(1.)
-        self.set_dpi_cor(renderer.points_to_pixels(1.))
+        self._set_dpi_cor(renderer.points_to_pixels(1))
         path, fillable = self.get_path_in_displaycoord()
 
         if not cbook.iterable(fillable):
@@ -4635,7 +4628,7 @@ class ConnectionPatch(FancyArrowPatch):
         Return the mutated path of the arrow in the display coord
         """
 
-        dpi_cor = self.get_dpi_cor()
+        dpi_cor = self._get_dpi_cor()
 
         x, y = self.xy1
         posA = self._get_xy(x, y, self.coords1, self.axesA)
