@@ -4117,6 +4117,7 @@ class FancyArrowPatch(Patch):
 
         self._mutation_scale = mutation_scale
         self._mutation_aspect = mutation_aspect
+        self._set_dpi_cor(1)
 
     def _set_dpi_cor(self, dpi_cor):
         """
