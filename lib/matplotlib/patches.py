@@ -4013,9 +4013,7 @@ class FancyArrowPatch(Patch):
     def __init__(self, posA=None, posB=None,
                  path=None,
                  arrowstyle="simple",
-                 arrow_transmuter=None,
                  connectionstyle="arc3",
-                 connector=None,
                  patchA=None,
                  patchB=None,
                  shrinkA=2,
@@ -4054,9 +4052,6 @@ class FancyArrowPatch(Patch):
 
             %(AvailableArrowstyles)s
 
-        arrow_transmuter :
-            Ignored
-
         connectionstyle : str, ConnectionStyle, or None, optional
         (default: 'arc3')
             Describes how *posA* and *posB* are connected. It can be an
@@ -4065,9 +4060,6 @@ class FancyArrowPatch(Patch):
             following connection styles are available:
 
             %(AvailableConnectorstyles)s
-
-        connector :
-            Ignored
 
         patchA, patchB : None, Patch, optional (default: None)
             Head and tail patch respectively. :class:`matplotlib.patch.Patch`
@@ -4412,9 +4404,7 @@ class ConnectionPatch(FancyArrowPatch):
     def __init__(self, xyA, xyB, coordsA, coordsB=None,
                  axesA=None, axesB=None,
                  arrowstyle="-",
-                 arrow_transmuter=None,
                  connectionstyle="arc3",
-                 connector=None,
                  patchA=None,
                  patchB=None,
                  shrinkA=0.,
@@ -4486,9 +4476,7 @@ class ConnectionPatch(FancyArrowPatch):
         FancyArrowPatch.__init__(self,
                                  posA=(0, 0), posB=(1, 1),
                                  arrowstyle=arrowstyle,
-                                 arrow_transmuter=arrow_transmuter,
                                  connectionstyle=connectionstyle,
-                                 connector=connector,
                                  patchA=patchA,
                                  patchB=patchB,
                                  shrinkA=shrinkA,
