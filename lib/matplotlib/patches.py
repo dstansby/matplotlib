@@ -4109,30 +4109,6 @@ class FancyArrowPatch(Patch):
 
         self._mutation_scale = mutation_scale
         self._mutation_aspect = mutation_aspect
-        self._set_dpi_cor(1)
-
-    def _set_dpi_cor(self, dpi_cor):
-        """
-        dpi_cor is currently used for linewidth-related things and
-        shrink factor. Mutation scale is affected by this.
-
-        Parameters
-        ----------
-        dpi_cor : scalar
-        """
-        self._dpi_cor = dpi_cor
-        self.stale = True
-
-    def _get_dpi_cor(self):
-        """
-        dpi_cor is currently used for linewidth-related things and
-        shrink factor. Mutation scale is affected by this.
-
-        Returns
-        -------
-        dpi_cor : scalar
-        """
-        return self._dpi_cor
 
     def set_positions(self, posA, posB):
         """
@@ -4301,24 +4277,22 @@ class FancyArrowPatch(Patch):
         Return the mutated path of the arrow in display coordinates.
         """
 
-        dpi_cor = self._get_dpi_cor()
-
         if self._posA_posB is not None:
             posA = self.get_transform().transform_point(self._posA_posB[0])
             posB = self.get_transform().transform_point(self._posA_posB[1])
             _path = self.get_connectionstyle()(posA, posB,
                                                patchA=self.patchA,
                                                patchB=self.patchB,
-                                               shrinkA=self.shrinkA * dpi_cor,
-                                               shrinkB=self.shrinkB * dpi_cor
+                                               shrinkA=self.shrinkA,
+                                               shrinkB=self.shrinkB,
                                                )
         else:
             _path = self.get_transform().transform_path(self._path_original)
 
         _path, fillable = self.get_arrowstyle()(
             _path,
-            self.get_mutation_scale() * dpi_cor,
-            self.get_linewidth() * dpi_cor,
+            self.get_mutation_scale(),
+            self.get_linewidth(),
             self.get_mutation_aspect())
 
         # if not fillable:
@@ -4365,9 +4339,6 @@ class FancyArrowPatch(Patch):
         if self.get_sketch_params() is not None:
             gc.set_sketch_params(*self.get_sketch_params())
 
-        # FIXME : dpi_cor is for the dpi-dependecy of the
-        # linewidth. There could be room for improvement.
-        self._set_dpi_cor(renderer.points_to_pixels(1))
         path, fillable = self.get_path_in_displaycoord()
 
         if not cbook.iterable(fillable):
@@ -4412,7 +4383,6 @@ class ConnectionPatch(FancyArrowPatch):
                  mutation_scale=10.,
                  mutation_aspect=None,
                  clip_on=False,
-                 dpi_cor=1.,
                  **kwargs):
         """
         Connect point *xyA* in *coordsA* with point *xyB* in *coordsB*
@@ -4484,7 +4454,6 @@ class ConnectionPatch(FancyArrowPatch):
                                  mutation_scale=mutation_scale,
                                  mutation_aspect=mutation_aspect,
                                  clip_on=clip_on,
-                                 dpi_cor=dpi_cor,
                                  **kwargs)
 
         # if True, draw annotation only if self.xy is inside the axes
@@ -4617,8 +4586,6 @@ class ConnectionPatch(FancyArrowPatch):
         Return the mutated path of the arrow in the display coord
         """
 
-        dpi_cor = self._get_dpi_cor()
-
         x, y = self.xy1
         posA = self._get_xy(x, y, self.coords1, self.axesA)
 
@@ -4628,14 +4595,14 @@ class ConnectionPatch(FancyArrowPatch):
         _path = self.get_connectionstyle()(posA, posB,
                                            patchA=self.patchA,
                                            patchB=self.patchB,
-                                           shrinkA=self.shrinkA * dpi_cor,
-                                           shrinkB=self.shrinkB * dpi_cor
+                                           shrinkA=self.shrinkA,
+                                           shrinkB=self.shrinkB
                                            )
 
         _path, fillable = self.get_arrowstyle()(
                                         _path,
-                                        self.get_mutation_scale() * dpi_cor,
-                                        self.get_linewidth() * dpi_cor,
+                                        self.get_mutation_scale(),
+                                        self.get_linewidth(),
                                         self.get_mutation_aspect()
                                         )
 
