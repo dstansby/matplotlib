@@ -3,7 +3,7 @@ from __future__ import (absolute_import, division, print_function,
 
 import warnings
 
-import numpy
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.testing.decorators import image_comparison
 
@@ -40,65 +40,60 @@ def check_visible(axs, x_visible, y_visible):
                     "Y axis was incorrectly %s" % (tostr(vy))
 
 
-def test_shared():
-    rdim = (4, 4, 2)
-    share = {
-            'all': numpy.ones(rdim[:2], dtype=bool),
-            'none': numpy.zeros(rdim[:2], dtype=bool),
-            'row': numpy.array([
-                [False, True, False, False],
-                [True, False, False, False],
-                [False, False, False, True],
-                [False, False, True, False]]),
-            'col': numpy.array([
-                [False, False, True, False],
-                [False, False, False, True],
-                [True, False, False, False],
-                [False, True, False, False]]),
-            }
-    visible = {
-            'x': {
-                'all': [False, False, True, True],
-                'col': [False, False, True, True],
-                'row': [True] * 4,
-                'none': [True] * 4,
-                False: [True] * 4,
-                True: [False, False, True, True],
-                },
-            'y': {
-                'all': [True, False, True, False],
-                'col': [True] * 4,
-                'row': [True, False, True, False],
-                'none': [True] * 4,
-                False: [True] * 4,
-                True: [True, False, True, False],
-                },
-            }
-    share[False] = share['none']
-    share[True] = share['all']
+class TestShared(object):
+    @classmethod
+    def setup_class(self):
+        rdim = (4, 4, 2)
+        self.share = {'all': np.ones(rdim[:2], dtype=bool),
+                      'none': np.zeros(rdim[:2], dtype=bool),
+                      'row': np.array([[False, True, False, False],
+                                       [True, False, False, False],
+                                       [False, False, False, True],
+                                       [False, False, True, False]]),
+                      'col': np.array([[False, False, True, False],
+                                       [False, False, False, True],
+                                       [True, False, False, False],
+                                       [False, True, False, False]])}
+        self.visible = {'x': {'all': [False, False, True, True],
+                              'col': [False, False, True, True],
+                              'row': [True] * 4,
+                              'none': [True] * 4,
+                              False: [True] * 4,
+                              True: [False, False, True, True]},
+                        'y': {'all': [True, False, True, False],
+                              'col': [True] * 4,
+                              'row': [True, False, True, False],
+                              'none': [True] * 4,
+                              False: [True] * 4,
+                              True: [True, False, True, False]}}
+        self.share[False] = self.share['none']
+        self.share[True] = self.share['all']
 
-    # test default
-    f, ((a1, a2), (a3, a4)) = plt.subplots(2, 2)
-    axs = [a1, a2, a3, a4]
-    check_shared(axs, share['none'], share['none'])
-    plt.close(f)
+    options = [False, True, 'all', 'none', 'row', 'col']
 
-    # test all option combinations
-    ops = [False, True, 'all', 'none', 'row', 'col']
-    for xo in ops:
-        for yo in ops:
-            f, ((a1, a2), (a3, a4)) = plt.subplots(2, 2, sharex=xo, sharey=yo)
-            axs = [a1, a2, a3, a4]
-            check_shared(axs, share[xo], share[yo])
-            check_visible(axs, visible['x'][xo], visible['y'][yo])
-            plt.close(f)
+    @pytest.mark.parametrize('xops', options)
+    @pytest.mark.parametrize('yops', options)
+    def test_shared(self, xops, yops):
+        f, ((a1, a2), (a3, a4)) = plt.subplots(2, 2, sharex=xops, sharey=yops)
+        axs = [a1, a2, a3, a4]
+        check_shared(axs, self.share[xops], self.share[yops])
+        check_visible(axs, self.visible['x'][xops], self.visible['y'][yops])
+        plt.close(f)
 
-    # test label_outer
-    f, ((a1, a2), (a3, a4)) = plt.subplots(2, 2, sharex=True, sharey=True)
-    axs = [a1, a2, a3, a4]
-    for ax in axs:
-        ax.label_outer()
-    check_visible(axs, [False, False, True, True], [True, False, True, False])
+    def test_defaults(self):
+        f, ((a1, a2), (a3, a4)) = plt.subplots(2, 2)
+        axs = [a1, a2, a3, a4]
+        check_shared(axs, self.share['none'], self.share['none'])
+        plt.close(f)
+
+    def test_label_outer(self):
+        f, ((a1, a2), (a3, a4)) = plt.subplots(2, 2, sharex=True, sharey=True)
+        axs = [a1, a2, a3, a4]
+        for ax in axs:
+            ax.label_outer()
+        check_visible(axs,
+                      [False, False, True, True],
+                      [True, False, True, False])
 
 
 def test_exceptions():
