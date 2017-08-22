@@ -669,7 +669,7 @@ class Rectangle(Patch):
     """
 
     def __str__(self):
-        pars = self._x, self._y, self._width, self._height, self.angle
+        pars = self._x0, self._y0, self._width, self._height, self.angle
         fmt = "Rectangle(xy=(%g, %g), width=%g, height=%g, angle=%g)"
         return fmt % pars
 
@@ -753,7 +753,7 @@ class Rectangle(Patch):
 
         ACCEPTS: float
         """
-        self._x0 = x0
+        self._x0 = x
         self.stale = True
 
     def set_y(self, y):
@@ -762,7 +762,7 @@ class Rectangle(Patch):
 
         ACCEPTS: float
         """
-        self._y0 = y0
+        self._y0 = y
         self.stale = True
 
     def set_xy(self, xy):
