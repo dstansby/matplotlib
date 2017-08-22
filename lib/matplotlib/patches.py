@@ -688,10 +688,15 @@ class Rectangle(Patch):
 
         Patch.__init__(self, **kwargs)
 
-        self._x = xy[0]
-        self._y = xy[1]
+        self._x0 = xy[0]
+        self._y0 = xy[1]
+
         self._width = width
         self._height = height
+
+        self._x1 = self._x0 + self._width
+        self._y1 = self._y0 + self._height
+
         self.angle = float(angle)
         # Note: This cannot be calculated until this is added to an Axes
         self._rect_transform = transforms.IdentityTransform()
@@ -708,13 +713,13 @@ class Rectangle(Patch):
                  maxes it very important to call the accessor method and
                  not directly access the transformation member variable.
         """
-        x = self.convert_xunits(self._x)
-        y = self.convert_yunits(self._y)
-        width = self.convert_xunits(self._width)
-        height = self.convert_yunits(self._height)
-        bbox = transforms.Bbox.from_bounds(x, y, width, height)
+        x0 = self.convert_xunits(self._x0)
+        y0 = self.convert_yunits(self._y0)
+        x1 = self.convert_xunits(self._x1)
+        y1 = self.convert_yunits(self._y1)
+        bbox = transforms.Bbox.from_extents(x0, y0, x1, y1)
         rot_trans = transforms.Affine2D()
-        rot_trans.rotate_deg_around(x, y, self.angle)
+        rot_trans.rotate_deg_around(x0, y0, self.angle)
         self._rect_transform = transforms.BboxTransformTo(bbox)
         self._rect_transform += rot_trans
 
@@ -724,15 +729,15 @@ class Rectangle(Patch):
 
     def get_x(self):
         "Return the left coord of the rectangle"
-        return self._x
+        return self._x0
 
     def get_y(self):
         "Return the bottom coord of the rectangle"
-        return self._y
+        return self._y0
 
     def get_xy(self):
         "Return the left and bottom coords of the rectangle"
-        return self._x, self._y
+        return self._x0, self._y0
 
     def get_width(self):
         "Return the width of the  rectangle"
@@ -748,7 +753,7 @@ class Rectangle(Patch):
 
         ACCEPTS: float
         """
-        self._x = x
+        self._x0 = x0
         self.stale = True
 
     def set_y(self, y):
@@ -757,7 +762,7 @@ class Rectangle(Patch):
 
         ACCEPTS: float
         """
-        self._y = y
+        self._y0 = y0
         self.stale = True
 
     def set_xy(self, xy):
@@ -766,7 +771,7 @@ class Rectangle(Patch):
 
         ACCEPTS: 2-item sequence
         """
-        self._x, self._y = xy
+        self._x0, self._y0 = xy
         self.stale = True
 
     def set_width(self, w):
@@ -776,6 +781,7 @@ class Rectangle(Patch):
         ACCEPTS: float
         """
         self._width = w
+        self._x1 = self._x0 + w
         self.stale = True
 
     def set_height(self, h):
@@ -785,6 +791,7 @@ class Rectangle(Patch):
         ACCEPTS: float
         """
         self._height = h
+        self._y1 = self._y0 + h
         self.stale = True
 
     def set_bounds(self, *args):
@@ -797,15 +804,17 @@ class Rectangle(Patch):
             l, b, w, h = args[0]
         else:
             l, b, w, h = args
-        self._x = l
-        self._y = b
+        self._x0 = l
+        self._y0 = b
         self._width = w
         self._height = h
+        self._x0 = l + w
+        self._y0 = b + h
         self.stale = True
 
     def get_bbox(self):
-        return transforms.Bbox.from_bounds(self._x, self._y,
-                                           self._width, self._height)
+        return transforms.Bbox.from_extents(self._x0, self._y0,
+                                            self._x1, self._y1)
 
     xy = property(get_xy, set_xy)
 
