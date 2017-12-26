@@ -87,12 +87,12 @@ class TransformNode(object):
 
     def __init__(self, shorthand_name=None):
         """
-        Creates a new :class:`TransformNode`.
-
-        **shorthand_name** - a string representing the "name" of this
-                             transform. The name carries no significance
-                             other than to improve the readability of
-                             ``str(transform)`` when DEBUG=True.
+        Parameters
+        ----------
+        shorthand_name : string, optional
+            A string representing the "name" of this transform. The name
+            carries no significance other than to improve the readability of
+            ``str(transform)`` when DEBUG=True.
         """
         self._parents = {}
 
@@ -191,6 +191,10 @@ class TransformNode(object):
         will not update when its children change.  Useful for storing
         a previously known state of a transform where
         ``copy.deepcopy()`` might normally be used.
+
+        Returns
+        -------
+        :class:`TransformNode`
         """
         return self
 
@@ -286,8 +290,11 @@ class BboxBase(TransformNode):
 
     def is_unit(self):
         """
-        Returns True if the :class:`Bbox` is the unit bounding box
-        from (0, 0) to (1, 1).
+        Returns
+        -------
+        bool
+            ``True`` if the :class:`Bbox` is the unit bounding box
+            from (0, 0) to (1, 1), ``False`` otherwise.
         """
         return list(self.get_points().flatten()) == [0., 0., 1., 1.]
 
@@ -453,27 +460,46 @@ class BboxBase(TransformNode):
 
     def containsx(self, x):
         """
-        Returns whether `x` is in the closed (:attr:`x0`, :attr:`x1`) interval.
+        Returns
+        -------
+        bool
+            Returns whether *x* is in the closed (:attr:`x0`, :attr:`x1`)
+            interval.
         """
         x0, x1 = self.intervalx
         return x0 <= x <= x1 or x0 >= x >= x1
 
     def containsy(self, y):
         """
-        Returns whether `y` is in the closed (:attr:`y0`, :attr:`y1`) interval.
+        Returns
+        -------
+        bool
+            Returns whether *y* is in the closed (:attr:`y0`, :attr:`y1`)
+            interval.
         """
         y0, y1 = self.intervaly
         return y0 <= y <= y1 or y0 >= y >= y1
 
     def contains(self, x, y):
         """
-        Returns whether `x, y` is in the bounding box or on its edge.
+        Returns
+        -------
+        bool
+            Returns whether ``(x, y)`` is in the bounding box or on its edge.
         """
         return self.containsx(x) and self.containsy(y)
 
     def overlaps(self, other):
         """
-        Returns whether this bounding box overlaps with the other bounding box.
+        Parameters
+        ----------
+        other : BboxBase
+
+        Returns
+        -------
+        bool
+            Returns whether this bounding box overlaps with the other
+            bounding box.
         """
         ax1, ay1, ax2, ay2 = self.extents
         bx1, by1, bx2, by2 = other.extents
@@ -489,28 +515,47 @@ class BboxBase(TransformNode):
 
     def fully_containsx(self, x):
         """
-        Returns whether `x` is in the open (:attr:`x0`, :attr:`x1`) interval.
+        Returns
+        -------
+        bool
+            Returns whether *x* is in the open (:attr:`x0`, :attr:`x1`)
+            interval.
         """
         x0, x1 = self.intervalx
         return x0 < x < x1 or x0 > x > x1
 
     def fully_containsy(self, y):
         """
-        Returns whether `y` is in the open (:attr:`y0`, :attr:`y1`) interval.
+        Returns
+        -------
+        bool
+            Returns whether *y* is in the open (:attr:`y0`, :attr:`y1`)
+            interval.
         """
         y0, y1 = self.intervaly
         return y0 < y < y1 or y0 > y > y1
 
     def fully_contains(self, x, y):
         """
-        Returns whether `x, y` is in the bounding box, but not on its edge.
+        Returns
+        -------
+        bool
+            Returns whether ``(x, y)`` is in the bounding box, but not on
+            its edge.
         """
         return self.fully_containsx(x) and self.fully_containsy(y)
 
     def fully_overlaps(self, other):
         """
-        Returns whether this bounding box overlaps with the other bounding box,
-        not including the edges.
+        Parameters
+        ----------
+        other : BboxBase
+
+        Returns
+        -------
+        bool
+            Returns whether this bounding box overlaps with the other
+            bounding box, not including the edges.
         """
         ax1, ay1, ax2, ay2 = self.extents
         bx1, by1, bx2, by2 = other.extents
@@ -526,8 +571,11 @@ class BboxBase(TransformNode):
 
     def transformed(self, transform):
         """
-        Return a new :class:`Bbox` object, statically transformed by
-        the given transform.
+        Returns
+        -------
+        Bbox
+            A new :class:`Bbox` object, statically transformed by
+            the given transform.
         """
         pts = self.get_points()
         ll, ul, lr = transform.transform(np.array([pts[0],
@@ -536,8 +584,11 @@ class BboxBase(TransformNode):
 
     def inverse_transformed(self, transform):
         """
-        Return a new :class:`Bbox` object, statically transformed by
-        the inverse of the given transform.
+        Returns
+        -------
+        Bbox
+            A new :class:`Bbox` object, statically transformed by
+            the inverse of the given transform.
         """
         return self.transformed(transform.inverted())
 
@@ -556,21 +607,29 @@ class BboxBase(TransformNode):
         Return a copy of the :class:`Bbox`, shifted to position *c*
         within a container.
 
-        *c*: may be either:
+        Parameters
+        ----------
+        c :
+            Can be either:
 
-          * a sequence (*cx*, *cy*) where *cx* and *cy* range from 0
-            to 1, where 0 is left or bottom and 1 is right or top
+            * A sequence ``(cx, cy)`` where ``cx`` and ``cy`` range from 0
+              to 1, where 0 is left or bottom and 1 is right or top.
 
-          * a string:
-            - 'C' for centered
-            - 'S' for bottom-center
-            - 'SE' for bottom-left
-            - 'E' for left
-            - etc.
+            * A string:
 
-        Optional argument *container* is the box within which the
-        :class:`Bbox` is positioned; it defaults to the initial
-        :class:`Bbox`.
+              - 'C' for centered
+              - 'S' for bottom-center
+              - 'SE' for bottom-left
+              - 'E' for left
+              - etc.
+
+        container : :class:`Bbox`, optional
+            The box within which the :class:`Bbox` is positioned; it defaults
+            to the initial :class:`Bbox`.
+
+        Returns
+        -------
+        :class`Bbox`
         """
         if container is None:
             container = self
@@ -753,8 +812,13 @@ class Bbox(BboxBase):
 
     def __init__(self, points, **kwargs):
         """
-        *points*: a 2x2 numpy array of the form [[x0, y0], [x1, y1]]
+        Parameters
+        ----------
+        points : array
+            A 2x2 numpy array of the form ``[[x0, y0], [x1, y1]]``.
 
+        Notes
+        -----
         If you need to create a :class:`Bbox` object from another form
         of data, consider the static methods :meth:`unit`,
         :meth:`from_bounds` and :meth:`from_extents`.
@@ -785,24 +849,21 @@ class Bbox(BboxBase):
     @staticmethod
     def unit():
         """
-        (staticmethod) Create a new unit :class:`Bbox` from (0, 0) to
-        (1, 1).
+        Create a new unit :class:`Bbox` from (0, 0) to (1, 1).
         """
         return Bbox(np.array([[0.0, 0.0], [1.0, 1.0]], float))
 
     @staticmethod
     def null():
         """
-        (staticmethod) Create a new null :class:`Bbox` from (inf, inf) to
-        (-inf, -inf).
+        Create a new null :class:`Bbox` from (inf, inf) to (-inf, -inf).
         """
         return Bbox(np.array([[np.inf, np.inf], [-np.inf, -np.inf]], float))
 
     @staticmethod
     def from_bounds(x0, y0, width, height):
         """
-        (staticmethod) Create a new :class:`Bbox` from *x0*, *y0*,
-        *width* and *height*.
+        Create a new :class:`Bbox` from *x0*, *y0*, *width* and *height*.
 
         *width* and *height* may be negative.
         """
@@ -811,8 +872,7 @@ class Bbox(BboxBase):
     @staticmethod
     def from_extents(*args):
         """
-        (staticmethod) Create a new Bbox from *left*, *bottom*,
-        *right* and *top*.
+        Create a new Bbox from *left*, *bottom*, *right* and *top*.
 
         The *y*-axis increases upwards.
         """
@@ -1430,11 +1490,17 @@ class Transform(TransformNode):
         """
         Performs the transformation on the given array of values.
 
-        Accepts a numpy array of shape (N x :attr:`input_dims`) and
-        returns a numpy array of shape (N x :attr:`output_dims`).
+        Parameters
+        ----------
+        values : array
+            A numpy array of shape (N x :attr:`input_dims`) or length
+            :attr:`input_dims`.
 
-        Alternatively, accepts a numpy array of length :attr:`input_dims`
-        and returns a numpy array of length :attr:`output_dims`.
+        Returns
+        -------
+        array
+            A numpy array of shape (N x :attr:`output_dims`) or length
+            :attr:`output_dims`.
         """
         # Ensure that values is a 2d array (but remember whether
         # we started with a 1d or 2d array).
@@ -1469,11 +1535,17 @@ class Transform(TransformNode):
         affine transformations, this is equivalent to
         ``transform(values)``.
 
-        Accepts a numpy array of shape (N x :attr:`input_dims`) and
-        returns a numpy array of shape (N x :attr:`output_dims`).
+        Parameters
+        ----------
+        values : array
+            A numpy array of shape (N x :attr:`input_dims`) or length
+            :attr:`input_dims`.
 
-        Alternatively, accepts a numpy array of length :attr:`input_dims`
-        and returns a numpy array of length :attr:`output_dims`.
+        Returns
+        -------
+        array
+            A numpy array of shape (N x :attr:`output_dims`) or length
+            :attr:`output_dims`.
         """
         return self.get_affine().transform(values)
 
@@ -1488,11 +1560,17 @@ class Transform(TransformNode):
         ``transform(values)``.  In affine transformations, this is
         always a no-op.
 
-        Accepts a numpy array of shape (N x :attr:`input_dims`) and
-        returns a numpy array of shape (N x :attr:`output_dims`).
+        Parameters
+        ----------
+        values : array
+            A numpy array of shape (N x :attr:`input_dims`) or length
+            :attr:`input_dims`.
 
-        Alternatively, accepts a numpy array of length :attr:`input_dims`
-        and returns a numpy array of length :attr:`output_dims`.
+        Returns
+        -------
+        array
+            A numpy array of shape (N x :attr:`output_dims`) or length
+            :attr:`output_dims`.
         """
         return values
 
@@ -1502,6 +1580,15 @@ class Transform(TransformNode):
 
         Note, for smarter transforms including caching (a common
         requirement for matplotlib figures), see :class:`TransformedBbox`.
+
+        Parameters
+        ----------
+        bbox : Bbox
+
+        Returns
+        -------
+        Bbox
+            Transformed bounding box.
         """
         return Bbox(self.transform(bbox.get_points()))
 
@@ -1515,7 +1602,6 @@ class Transform(TransformNode):
         """
         Get the Affine transformation array for the affine part
         of this transform.
-
         """
         return self.get_affine().get_matrix()
 
@@ -1524,9 +1610,15 @@ class Transform(TransformNode):
         A convenience function that returns the transformed copy of a
         single point.
 
-        The point is given as a sequence of length :attr:`input_dims`.
-        The transformed point is returned as a sequence of length
-        :attr:`output_dims`.
+        Parameters
+        ----------
+        point : sequence
+            A sequence of length :attr:`input_dims`.
+
+        Returns
+        -------
+        sequence
+            A sequence of length :attr:`output_dims`.
         """
         if len(point) != self.input_dims:
             msg = "The length of 'point' must be 'self.input_dims'"
@@ -1567,9 +1659,9 @@ class Transform(TransformNode):
         ``transform_path_affine(transform_path_non_affine(values))``.
         """
         x = self.transform_non_affine(path.vertices)
-        return Path._fast_from_codes_and_verts(x, path.codes,
-                {'interpolation_steps': path._interpolation_steps,
-                 'should_simplify': path.should_simplify})
+        return Path._fast_from_codes_and_verts(
+            x, path.codes, {'interpolation_steps': path._interpolation_steps,
+                            'should_simplify': path.should_simplify})
 
     def transform_angles(self, angles, pts, radians=False, pushoff=1e-5):
         """
