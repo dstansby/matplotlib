@@ -42,16 +42,16 @@ class HandlerBase(object):
     """
     A Base class for default legend handlers.
 
-    The derived classes are meant to override *create_artists* method, which
-    has a following signature.::
+    The derived classes are meant to override the *create_artists* method,
+    which has the following signature::
 
       def create_artists(self, legend, orig_handle,
                          xdescent, ydescent, width, height, fontsize,
                          trans):
 
-    The overridden method needs to create artists of the given
-    transform that fits in the given dimension (xdescent, ydescent,
-    width, height) that are scaled by fontsize if necessary.
+    The overridden method needs to create artists of the given transform that
+    fits in the given dimension (xdescent, ydescent, width, height)
+    that are scaled by fontsize if necessary.
 
     """
     def __init__(self, xpad=0., ypad=0., update_func=None):
@@ -68,6 +68,13 @@ class HandlerBase(object):
         legend_handle.update_from(orig_handle)
 
     def update_prop(self, legend_handle, orig_handle, legend):
+        '''
+        Parameters
+        ----------
+        legend_handle :
+        orig_handle :
+        legend : :class:`.legend.Legend`
+        '''
 
         self._update_prop(legend_handle, orig_handle)
 
@@ -92,17 +99,20 @@ class HandlerBase(object):
 
         Parameters
         ----------
-        legend : :class:`matplotlib.legend.Legend` instance
+        legend : :class:`.legend.Legend`
             The legend for which these legend artists are being created.
-        orig_handle : :class:`matplotlib.artist.Artist` or similar
+        orig_handle : :class:`.artist.Artist` or similar
             The object for which these legend artists are being created.
         fontsize : float or int
             The fontsize in pixels. The artists being created should
             be scaled according to the given fontsize.
-        handlebox : :class:`matplotlib.offsetbox.OffsetBox` instance
+        handlebox : :class:`.offsetbox.OffsetBox` instance
             The box which has been created to hold this legend entry's
             artists. Artists created in the `legend_artist` method must
             be added to this handlebox inside this method.
+
+        Returns
+        -------
 
         """
         xdescent, ydescent, width, height = self.adjust_drawing_area(
@@ -135,10 +145,10 @@ class HandlerNpoints(HandlerBase):
         """
         Parameters
         ----------
-        marker_pad : float
+        marker_pad : float, optional
             Padding between points in legend entry.
 
-        numpoints : int
+        numpoints : int, optional
             Number of points to show in legend entry.
 
         Notes
@@ -151,12 +161,40 @@ class HandlerNpoints(HandlerBase):
         self._marker_pad = marker_pad
 
     def get_numpoints(self, legend):
+        """
+        Get the number of points in the legend.
+
+        If *numpoints* has been specified explicitly, in the constructor,
+        returns the specified value. Otherwise returns the number of points
+        in *legend*.
+
+        Parameters
+        ----------
+        legend : :class:`.legend.Legend`
+        """
         if self._numpoints is None:
             return legend.numpoints
         else:
             return self._numpoints
 
     def get_xdata(self, legend, xdescent, ydescent, width, height, fontsize):
+        """
+        Return x values of the points in the legend.
+
+        Parameters
+        ----------
+        legend : :class:`.legend.Legend`
+        xdescent : scalar
+        ydescent : scalar
+        width : scalar
+        height : scalar
+        fontsize : scalar
+
+        Returns
+        -------
+        xdata : array of floats
+        xdata_marker :
+        """
         numpoints = self.get_numpoints(legend)
         if numpoints > 1:
             # we put some pad here to compensate the size of the marker
@@ -195,6 +233,22 @@ class HandlerNpointsYoffsets(HandlerNpoints):
         self._yoffsets = yoffsets
 
     def get_ydata(self, legend, xdescent, ydescent, width, height, fontsize):
+        """
+        Return y values of the points in the legend.
+
+        Parameters
+        ----------
+        legend : :class:`.legend.Legend`
+        xdescent : scalar
+        ydescent : scalar
+        width : scalar
+        height : scalar
+        fontsize : scalar
+
+        Returns
+        -------
+        ydata : array of floats
+        """
         if self._yoffsets is None:
             ydata = height * legend._scatteryoffsets
         else:
@@ -207,22 +261,25 @@ class HandlerLine2D(HandlerNpoints):
     """
     Handler for `.Line2D` instances.
     """
-    def __init__(self, marker_pad=0.3, numpoints=None, **kw):
+    def get_ydata(legend, xdescent, ydescent,
+                  width, height, fontsize):
         """
+        Return y values of the points in the legend.
+
         Parameters
         ----------
-        marker_pad : float
-            Padding between points in legend entry.
+        legend : :class:`.legend.Legend`
+        xdescent : scalar
+        ydescent : scalar
+        width : scalar
+        height : scalar
+        fontsize : scalar
 
-        numpoints : int
-            Number of points to show in legend entry.
-
-        Notes
-        -----
-        Any other keyword arguments are given to `HandlerNpoints`.
+        Returns
+        -------
+        ydata : array of floats
         """
-        HandlerNpoints.__init__(self, marker_pad=marker_pad,
-                                numpoints=numpoints, **kw)
+        ((height - ydescent) / 2.) * np.ones(xdata.shape, float)
 
     def create_artists(self, legend, orig_handle,
                        xdescent, ydescent, width, height, fontsize,
@@ -230,8 +287,8 @@ class HandlerLine2D(HandlerNpoints):
 
         xdata, xdata_marker = self.get_xdata(legend, xdescent, ydescent,
                                              width, height, fontsize)
-
-        ydata = ((height - ydescent) / 2.) * np.ones(xdata.shape, float)
+        ydata = self.get_ydata(legend, xdescent, ydescent,
+                               width, height, fontsize)
         legline = Line2D(xdata, ydata)
 
         self.update_prop(legline, orig_handle, legend)
