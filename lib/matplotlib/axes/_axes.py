@@ -2222,23 +2222,53 @@ class Axes(_AxesBase):
         else:
             raise ValueError('invalid orientation: %s' % orientation)
 
+        # We will now resolve the alignment and really have
+        # left, right, bottom, width, height vectors
+        # This is done before doing unit conversion to avoid having to convert
+        # width and height, which may be in different units (e.g. timedelta) to
+        # x/y (e.g. datetime).
+        if align == 'center':
+            if orientation == 'vertical':
+                left = x - width / 2
+                right = x + width / 2
+                bottom = y
+                top = y + height
+            elif orientation == 'horizontal':
+                left = x
+                right = x + width
+                bottom = y - height / 2
+                top = y + height / 2
+        elif align == 'edge':
+            left = x
+            right = x + width
+            bottom = y
+            top = y + height
+        else:
+            raise ValueError('invalid alignment: %s' % align)
+
         # lets do some conversions now since some types cannot be
         # subtracted uniformly
         if self.xaxis is not None:
             x = self.convert_xunits(x)
-            width = self.convert_xunits(width)
+            left = self.convert_xunits(left)
+            right = self.convert_xunits(right)
+            # Calculate width after unit conversion
+            width = right - left
             if xerr is not None:
                 xerr = self.convert_xunits(xerr)
 
         if self.yaxis is not None:
             y = self.convert_yunits(y)
-            height = self.convert_yunits(height)
+            bottom = self.convert_yunits(bottom)
+            top = self.convert_yunits(top)
+            # Calculate height after unit conversion
+            height = top - bottom
             if yerr is not None:
                 yerr = self.convert_yunits(yerr)
 
-        x, height, width, y, linewidth = np.broadcast_arrays(
+        x, height, width, y, bottom, top, left, right, linewidth = np.broadcast_arrays(
             # Make args iterable too.
-            np.atleast_1d(x), height, width, y, linewidth)
+            np.atleast_1d(x), height, width, y, bottom, top, left, right, linewidth)
 
         # Now that units have been converted, set the tick locations.
         if orientation == 'vertical':
@@ -2259,21 +2289,6 @@ class Axes(_AxesBase):
                 itertools.cycle(mcolors.to_rgba_array(edgecolor)),
                 # Fallback if edgecolor == "none".
                 itertools.repeat('none'))
-
-        # We will now resolve the alignment and really have
-        # left, bottom, width, height vectors
-        if align == 'center':
-            if orientation == 'vertical':
-                left = x - width / 2
-                bottom = y
-            elif orientation == 'horizontal':
-                bottom = y - height / 2
-                left = x
-        elif align == 'edge':
-            left = x
-            bottom = y
-        else:
-            raise ValueError('invalid alignment: %s' % align)
 
         patches = []
         args = zip(left, bottom, width, height, color, edgecolor, linewidth)
