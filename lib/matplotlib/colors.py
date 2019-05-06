@@ -1038,6 +1038,9 @@ class DivergingNorm(Normalize):
 class LogNorm(Normalize):
     """Normalize a given value to the 0-1 range on a log scale."""
 
+    def __init__(self, vmin=0.1, vmax=1, clip=False):
+        super().__init__(vmin, vmax, clip)
+
     def _check_vmin_vmax(self):
         if self.vmin > self.vmax:
             raise ValueError("minvalue must be less than or equal to maxvalue")

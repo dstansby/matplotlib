@@ -818,3 +818,10 @@ def test_ndarray_subclass_norm(recwarn):
 def test_same_color():
     assert mcolors.same_color('k', (0, 0, 0))
     assert not mcolors.same_color('w', (1, 1, 0))
+
+
+def test_empty_lognorm_cbar():
+    fig, ax = plt.subplots()
+    sm = cm.ScalarMappable(norm=mcolors.LogNorm(), cmap='viridis')
+    fig.colorbar(sm)
+    plt.draw()
