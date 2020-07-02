@@ -1527,20 +1527,34 @@ class Axis(martist.Artist):
                                          f'units: {x!r}') from e
         return ret
 
-    def set_units(self, u):
+    def set_units(self, u, emit=True):
         """
         Set the units for axis.
 
         Parameters
         ----------
         u : units tag
+        emit : bool, default: True
+            Whether to notify observers of unit change.
         """
         if u == self.units:
             return
         self.units = u
         self._update_axisinfo()
-        self.callbacks.process('units')
-        self.callbacks.process('units finalize')
+        if emit:
+            self.callbacks.process('units')
+            self.callbacks.process('units finalize')
+
+            axes = self.axes
+            axis_name = self.axis_name  # e.g. 'x' or 'y'
+            shared_axes = getattr(axes, f'_shared_{axis_name}_axes')
+            for other in shared_axes.get_siblings(axes):
+                if other is not axes:
+                    axis = getattr(other, f'{axis_name}axis')
+                    axis.set_units(u, emit=False)
+                    if other.figure != axes.figure:
+                        other.figure.canvas.draw_idle()
+
         self.stale = True
 
     def get_units(self):
