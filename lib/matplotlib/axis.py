@@ -2191,6 +2191,10 @@ class XAxis(Axis):
     def tick_top(self):
         """
         Move ticks and ticklabels (if present) to the top of the axes.
+
+        See also
+        --------
+        ~matplotlib.axis.Axis.set_label_position : Set the axis label position.
         """
         label = True
         if 'label1On' in self._major_tick_kw:
@@ -2203,6 +2207,10 @@ class XAxis(Axis):
     def tick_bottom(self):
         """
         Move ticks and ticklabels (if present) to the bottom of the axes.
+
+        See also
+        --------
+        ~matplotlib.axis.Axis.set_label_position : Set the axis label position.
         """
         label = True
         if 'label1On' in self._major_tick_kw:
@@ -2447,6 +2455,10 @@ class YAxis(Axis):
             the default: ticks on both positions, labels at left.  'none'
             can be used if you don't want any ticks. 'none' and 'both'
             affect only the ticks, not the labels.
+
+        See also
+        --------
+        ~matplotlib.axis.Axis.set_label_position : Set the axis label position.
         """
         cbook._check_in_list(['left', 'right', 'both', 'default', 'none'],
                              position=position)
@@ -2474,6 +2486,10 @@ class YAxis(Axis):
     def tick_right(self):
         """
         Move ticks and ticklabels (if present) to the right of the axes.
+
+        See also
+        --------
+        ~matplotlib.axis.Axis.set_label_position : Set the axis label position.
         """
         label = True
         if 'label1On' in self._major_tick_kw:
@@ -2487,6 +2503,10 @@ class YAxis(Axis):
     def tick_left(self):
         """
         Move ticks and ticklabels (if present) to the left of the axes.
+
+        See also
+        --------
+        ~matplotlib.axis.Axis.set_label_position : Set the axis label position.
         """
         label = True
         if 'label1On' in self._major_tick_kw:
