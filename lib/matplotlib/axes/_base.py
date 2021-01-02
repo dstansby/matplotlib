@@ -2125,19 +2125,18 @@ class _AxesBase(martist.Artist):
                 ((not patch.get_width()) and (not patch.get_height()))):
             return
         p = patch.get_path()
-        vertices = p.vertices if p.codes is None else p.vertices[np.isin(
-            p.codes, (mpath.Path.CLOSEPOLY, mpath.Path.STOP), invert=True)]
-        if vertices.size > 0:
-            xys = patch.get_patch_transform().transform(vertices)
-            if patch.get_data_transform() != self.transData:
-                patch_to_data = (patch.get_data_transform() -
-                                 self.transData)
-                xys = patch_to_data.transform(xys)
+        # Get vertices of the bounding box
+        vertices = p.get_extents().get_points()
+        xys = patch.get_patch_transform().transform(vertices)
+        if patch.get_data_transform() != self.transData:
+            patch_to_data = (patch.get_data_transform() -
+                             self.transData)
+            xys = patch_to_data.transform(xys)
 
-            updatex, updatey = patch.get_transform().\
-                contains_branch_seperately(self.transData)
-            self.update_datalim(xys, updatex=updatex,
-                                updatey=updatey)
+        updatex, updatey = patch.get_transform().\
+            contains_branch_seperately(self.transData)
+        self.update_datalim(xys, updatex=updatex,
+                            updatey=updatey)
 
     def add_table(self, tab):
         """
