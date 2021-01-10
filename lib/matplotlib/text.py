@@ -1160,7 +1160,7 @@ class Text(Artist):
             (counterclockwise). 'horizontal' equals 0, 'vertical' equals 90.
         """
         if isinstance(s, str):
-            _api.check_in_list(['vertical', 'horizontal'], s=s)
+            _api.check_in_list(['vertical', 'horizontal'], rotation=s)
         elif s is not None:
             cbook._check_isinstance(numbers.Real, s=s)
         self._rotation = s
