@@ -713,7 +713,7 @@ def test_update_mutate_input():
 
 def test_invalid_rotation_values():
     with pytest.raises(ValueError,
-                       match="'invalid string' is not a valid value for s"):
+                       match="'invalid string' is not a valid value for rotation"):
         Text(0, 0, 'foo', rotation='invalid string')
     with pytest.raises(TypeError,
                        match="'s' must be an instance of numbers.Real"):
