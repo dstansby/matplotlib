@@ -2125,8 +2125,17 @@ class _AxesBase(martist.Artist):
                 ((not patch.get_width()) and (not patch.get_height()))):
             return
         p = patch.get_path()
-        # Get vertices of the bounding box
-        vertices = p.get_extents().get_points()
+        # Get all vertices on the path
+        # Loop through each sement to get extrema (as opposed to control points)
+        # for Bezier curve sections
+        vertices = []
+        for curve, code in p.iter_bezier():
+            _, dzeros = curve.axis_aligned_extrema()
+            # as can the ends of the curve
+            vertices.append(curve([0, *dzeros, 1]))
+
+        vertices = np.row_stack(vertices)
+
         xys = patch.get_patch_transform().transform(vertices)
         if patch.get_data_transform() != self.transData:
             patch_to_data = (patch.get_data_transform() -
