@@ -166,7 +166,15 @@ def _resample(
     allocating the output array and fetching the relevant properties from the
     Image object *image_obj*.
     """
-
+    # AGG can only handle coordinates larger than 24-bit signed integers,
+    # so raise errors if the input data is larger than _image.resample can
+    # handle.
+    if data.shape[1] > 2**23:
+        raise ValueError('Data with more than 2**23 rows cannot be '
+                         'accurately downsampled.')
+    if data.shape[0] > 2**24:
+        raise ValueError('Data with more than 2**24 columns cannot be '
+                         'accurately downsampled.')
     # decide if we need to apply anti-aliasing if the data is upsampled:
     # compare the number of displayed pixels to the number of
     # the data pixels.
