@@ -2755,6 +2755,9 @@ class PolygonSelector(_SelectorWidget):
     draw_box : bool, default: False
         If `True`, draw a bounding box around the polygon which can be used to
         rescale the points.
+    boxprops: dict, default: \
+``dict(fill=False, edgecolor='black', linestyle='--', alpha=0.3)``.
+        Artist properties for the bounding box, if drawn.
 
     Examples
     --------
@@ -2763,7 +2766,7 @@ class PolygonSelector(_SelectorWidget):
 
     def __init__(self, ax, onselect, useblit=False,
                  lineprops=None, markerprops=None, vertex_select_radius=15,
-                 draw_box=False):
+                 draw_box=False, boxprops=None):
         # The state modifiers 'move', 'square', and 'center' are expected by
         # _SelectorWidget but are not supported by PolygonSelector
         # Note: could not use the existing 'move' state modifier in-place of
@@ -2799,8 +2802,11 @@ class PolygonSelector(_SelectorWidget):
 
         self.artists = [self.line, self._polygon_handles.artist]
 
+        if boxprops is None:
+            boxprops = dict(fill=False, edgecolor='black', linestyle='--',
+                            alpha=0.3)
         if draw_box:
-            self.box = Rectangle((0, 0), 0, 0)
+            self.box = Rectangle((0, 0), 0, 0, **boxprops)
             self.box.set_visible(False)
             self.artists.append(self.box)
             self.ax.add_artist(self.box)
