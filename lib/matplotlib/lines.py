@@ -617,6 +617,11 @@ class Line2D(Artist):
             self.pickradius = p
         self._picker = p
 
+    def get_bbox(self):
+        bbox = Bbox([[0, 0], [0, 0]])
+        bbox.update_from_data_xy(self.get_xydata())
+        return bbox
+
     def get_window_extent(self, renderer):
         bbox = Bbox([[0, 0], [0, 0]])
         trans_data_to_xy = self.get_transform().transform

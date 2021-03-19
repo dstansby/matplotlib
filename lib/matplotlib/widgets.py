@@ -2752,6 +2752,9 @@ class PolygonSelector(_SelectorWidget):
     vertex_select_radius : float, default: 15px
         A vertex is selected (to complete the polygon or to move a vertex) if
         the mouse click is within *vertex_select_radius* pixels of the vertex.
+    draw_box : bool, default: False
+        If `True`, draw a bounding box around the polygon which can be used to
+        rescale the points.
 
     Examples
     --------
@@ -2759,7 +2762,8 @@ class PolygonSelector(_SelectorWidget):
     """
 
     def __init__(self, ax, onselect, useblit=False,
-                 lineprops=None, markerprops=None, vertex_select_radius=15):
+                 lineprops=None, markerprops=None, vertex_select_radius=15,
+                 draw_box=False):
         # The state modifiers 'move', 'square', and 'center' are expected by
         # _SelectorWidget but are not supported by PolygonSelector
         # Note: could not use the existing 'move' state modifier in-place of
@@ -2774,6 +2778,8 @@ class PolygonSelector(_SelectorWidget):
 
         self._xs, self._ys = [0], [0]
         self._polygon_completed = False
+
+        self.draw_box = draw_box
 
         if lineprops is None:
             lineprops = dict(color='k', linestyle='-', linewidth=2, alpha=0.5)
@@ -2792,7 +2798,21 @@ class PolygonSelector(_SelectorWidget):
         self.vertex_select_radius = vertex_select_radius
 
         self.artists = [self.line, self._polygon_handles.artist]
+
+        if draw_box:
+            self.box = Rectangle((0, 0), 0, 0)
+            self.box.set_visible(False)
+            self.artists.append(self.box)
+            self.ax.add_artist(self.box)
+
         self.set_visible(True)
+
+    def _update_box(self):
+        if self.draw_box:
+            bbox = self.get_bbox()
+            self.box.set_xy((bbox.x0, bbox.y0))
+            self.box.set_width(bbox.x1 - bbox.x0)
+            self.box.set_height(bbox.y1 - bbox.y0)
 
     def _press(self, event):
         """Button press event handler."""
@@ -2817,6 +2837,9 @@ class PolygonSelector(_SelectorWidget):
               and self._xs[-1] == self._xs[0]
               and self._ys[-1] == self._ys[0]):
             self._polygon_completed = True
+            if self.draw_box:
+                self._update_box()
+                self.box.set_visible(True)
 
         # Place new vertex.
         elif (not self._polygon_completed
@@ -2850,6 +2873,9 @@ class PolygonSelector(_SelectorWidget):
             # the active handle and the polygon is completed.
             if idx == 0 and self._polygon_completed:
                 self._xs[-1], self._ys[-1] = event.xdata, event.ydata
+
+            if self._polygon_completed:
+                self._update_box()
 
         # Move all vertices.
         elif 'move_all' in self.state and self.eventpress:
@@ -2897,6 +2923,7 @@ class PolygonSelector(_SelectorWidget):
                  or event.key == self.state_modifier_keys.get('move_all'))):
             self._xs.append(event.xdata)
             self._ys.append(event.ydata)
+            self._update_box()
             self._draw_polygon()
         # Reset the polygon if the released key is the 'clear' key.
         elif event.key == self.state_modifier_keys.get('clear'):
@@ -2904,6 +2931,8 @@ class PolygonSelector(_SelectorWidget):
             self._xs, self._ys = [event.xdata], [event.ydata]
             self._polygon_completed = False
             self.set_visible(True)
+            if self.draw_box:
+                self.box.set_visible(False)
 
     def _draw_polygon(self):
         """Redraw the polygon based on the new vertex positions."""
@@ -2918,12 +2947,18 @@ class PolygonSelector(_SelectorWidget):
             self._polygon_handles.set_data(self._xs[:-1], self._ys[:-1])
         else:
             self._polygon_handles.set_data(self._xs, self._ys)
+
+        if self._polygon_completed:
+            self._update_box()
         self.update()
 
     @property
     def verts(self):
         """The polygon vertices, as a list of ``(x, y)`` pairs."""
         return list(zip(self._xs[:-1], self._ys[:-1]))
+
+    def get_bbox(self):
+        return self.line.get_bbox()
 
 
 class Lasso(AxesWidget):
