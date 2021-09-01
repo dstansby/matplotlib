@@ -41,23 +41,24 @@ from .UnitDblFormatter import UnitDblFormatter
 
 __version__ = "1.0"
 
-__all__ = [
-            'register',
-            'Duration',
-            'Epoch',
-            'UnitDbl',
-            'UnitDblFormatter',
-          ]
+__all__ = ['register', 'Duration', 'Epoch', 'UnitDbl', 'UnitDblFormatter']
 
 
 def register():
-    """Register the unit conversion classes with matplotlib."""
-    import matplotlib.units as mplU
+    """Register the unit conversion classes with Matplotlib."""
+    import matplotlib.units as munits
 
-    mplU.registry[str] = StrConverter()
-    mplU.registry[Epoch] = EpochConverter()
-    mplU.registry[Duration] = EpochConverter()
-    mplU.registry[UnitDbl] = UnitDblConverter()
+    munits.registry[str] = StrConverter()
+    munits.registry[Epoch] = EpochConverter()
+    munits.registry[Duration] = EpochConverter()
+    munits.registry[UnitDbl] = UnitDblConverter()
+
+
+def de_register():
+    """de-register the unit conversion classes, if they are registered."""
+    import matplotlib.units as munits
+    for cls in [str, Epoch, Duration, UnitDbl]:
+        munits.registry.pop(cls, None)
 
 
 # Some default unit instances

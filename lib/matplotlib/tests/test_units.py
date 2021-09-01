@@ -1,4 +1,5 @@
 from datetime import datetime, timezone, timedelta
+import inspect
 import platform
 from unittest.mock import MagicMock
 
@@ -39,7 +40,6 @@ class Quantity:
         return np.asarray(self.magnitude)
 
 
-@pytest.fixture
 def quantity_converter():
     # Create an instance of the conversion interface and
     # mock so we can check methods called
@@ -73,16 +73,51 @@ def quantity_converter():
     return qc
 
 
+def use_quantity_converter():
+    """
+    Decorator to register converter, run test, and un-register converter.
+
+    The decorated function can optionally take a single argument, which is the
+    converter instance.
+    """
+    def outer(test_function):
+        def inner():
+            qc = quantity_converter()
+            munits.registry[Quantity] = qc
+
+            sig = inspect.signature(test_function)
+            if len(sig.parameters):
+                test_function(qc)
+            else:
+                test_function()
+
+            del munits.registry[Quantity]
+        return inner
+    return outer
+
+
+def use_jpl_units():
+    """
+    Decorator to register JPL converters, run test, and de-register converters.
+    """
+    def outer(test_function):
+        def inner():
+            import matplotlib.testing.jpl_units as units
+            units.register()
+            test_function()
+            units.de_register()
+        return inner
+    return outer
+
+
 # Tests that the conversion machinery works properly for classes that
 # work as a facade over numpy arrays (like pint)
 @image_comparison(['plot_pint.png'], remove_text=False, style='mpl20',
                   tol=0 if platform.machine() == 'x86_64' else 0.01)
+@use_quantity_converter()
 def test_numpy_facade(quantity_converter):
     # use former defaults to match existing baseline image
     plt.rcParams['axes.formatter.limits'] = -7, 7
-
-    # Register the class
-    munits.registry[Quantity] = quantity_converter
 
     # Simple test
     y = Quantity(np.linspace(0, 30), 'miles')
@@ -113,10 +148,8 @@ def test_plot_masked_units():
     ax.plot(data_masked_units)
 
 
-def test_empty_set_limits_with_units(quantity_converter):
-    # Register the class
-    munits.registry[Quantity] = quantity_converter
-
+@use_quantity_converter()
+def test_empty_set_limits_with_units():
     fig, ax = plt.subplots()
     ax.set_xlim(Quantity(-1, 'meters'), Quantity(6, 'meters'))
     ax.set_ylim(Quantity(-1, 'hours'), Quantity(16, 'hours'))
@@ -124,10 +157,9 @@ def test_empty_set_limits_with_units(quantity_converter):
 
 @image_comparison(['jpl_bar_units.png'],
                   savefig_kwarg={'dpi': 120}, style='mpl20')
+@use_jpl_units()
 def test_jpl_bar_units():
     import matplotlib.testing.jpl_units as units
-    units.register()
-
     day = units.Duration("ET", 24.0 * 60.0 * 60.0)
     x = [0 * units.km, 1 * units.km, 2 * units.km]
     w = [1 * day, 2 * day, 3 * day]
@@ -139,10 +171,9 @@ def test_jpl_bar_units():
 
 @image_comparison(['jpl_barh_units.png'],
                   savefig_kwarg={'dpi': 120}, style='mpl20')
+@use_jpl_units()
 def test_jpl_barh_units():
     import matplotlib.testing.jpl_units as units
-    units.register()
-
     day = units.Duration("ET", 24.0 * 60.0 * 60.0)
     x = [0 * units.km, 1 * units.km, 2 * units.km]
     w = [1 * day, 2 * day, 3 * day]
@@ -184,8 +215,8 @@ def test_subclass(fig_test, fig_ref):
     fig_ref.subplots().plot(datetime(2000, 1, 1), 0, "o")
 
 
-def test_shared_axis_quantity(quantity_converter):
-    munits.registry[Quantity] = quantity_converter
+@use_quantity_converter()
+def test_shared_axis_quantity():
     x = Quantity(np.linspace(0, 1, 10), "hours")
     y1 = Quantity(np.linspace(1, 2, 10), "feet")
     y2 = Quantity(np.linspace(3, 4, 10), "feet")
@@ -222,8 +253,8 @@ def test_shared_axis_categorical():
     assert "c" in ax2.xaxis.get_units()._mapping.keys()
 
 
-def test_empty_default_limits(quantity_converter):
-    munits.registry[Quantity] = quantity_converter
+@use_quantity_converter()
+def test_empty_default_limits():
     fig, ax1 = plt.subplots()
     ax1.xaxis.update_units(Quantity([10], "miles"))
     fig.draw_without_rendering()
