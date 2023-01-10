@@ -2635,7 +2635,12 @@ class Axes3D(Axes):
             # transpose to get a list of lines
             heads = heads.swapaxes(0, 1)
 
-            lines = [*shafts, *heads]
+            # Heads are rearranged so the (n+i) and (n+2i) items in the list
+            # are the head lines corresponding to the shaft at index (i)
+            # This allows properties that are cycled (e.g. color, linestyle)
+            # to be applied correctly when the whole set of lines is passed
+            # to the Line3DCollection
+            lines = [*shafts, *heads[::2], *heads[1::2]]
         else:
             lines = []
 
