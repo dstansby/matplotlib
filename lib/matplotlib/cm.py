@@ -516,27 +516,27 @@ class ScalarMappable:
         return rgba
 
     def _strip_units(self, A):
-        converter = munits.registry.get_converter(A)
-        if converter is None:
+        self._converter = munits.registry.get_converter(A)
+        if self._converter is None:
             self._units = None
             return A
 
         try:
-            self._units = converter.default_units(A, self)
+            self._units = self._converter.default_units(A, self)
         except Exception as e:
             raise RuntimeError(
-                f'{converter} failed when trying to return the '
+                f'{self._converter} failed when trying to return the '
                 'default units for this image. This may be because '
-                f'{converter} has not implemented support for '
+                f'{self._converter} has not implemented support for '
                 '`ScalarMappable`s in the default_units() method.'
             ) from e
 
         try:
-            A = converter.convert(A, self._units, self)
+            A = self._converter.convert(A, self._units, self)
         except Exception as e:
             raise munits.ConversionError(
-                f'{converter} failed when trying to convert the units '
-                f'for this image. This may be because {converter} has '
+                f'{self._converter} failed when trying to convert the units '
+                f'for this image. This may be because {self._converter} has '
                 'not implemented support for `ScalarMappable`s in the '
                 'convert() method.'
             ) from e
