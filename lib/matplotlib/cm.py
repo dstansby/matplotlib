@@ -558,6 +558,9 @@ class ScalarMappable:
         if A is None:
             self._A = None
             return
+        if isinstance(A, np.ma.MaskedArray):
+            # To get the right units we need to make sure A isn't a masked array
+            A = A.data
         A = self._strip_units(A)
         A = cbook.safe_masked_invalid(A, copy=True)
         if not np.can_cast(A.dtype, float, "same_kind"):
