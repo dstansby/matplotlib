@@ -113,21 +113,29 @@ class ConversionInterface:
 
     @staticmethod
     def axisinfo(unit, axis):
-        """Return an `.AxisInfo` for the axis with the specified units."""
+        """
+        Return an `.AxisInfo` for the axis with the specified units.
+        """
         return None
 
     @staticmethod
     def default_units(x, axis):
-        """Return the default unit for *x* or ``None`` for the given axis."""
+        """
+        Return the default unit for *x* or ``None`` for the given axis or mappable.
+
+        *axis* may be an `~.axis.Axis` or `~.cm.ScalarMappable`.
+        """
         return None
 
     @staticmethod
     def convert(obj, unit, axis):
         """
-        Convert *obj* using *unit* for the specified *axis*.
+        Convert *obj* using *unit* for the specified axis or mappable.
 
         If *obj* is a sequence, return the converted sequence.  The output must
         be a sequence of scalars that can be used by the numpy array layer.
+
+        *axis* may be an `~.axis.Axis` or `~.cm.ScalarMappable`.
         """
         return obj
 

@@ -24,6 +24,7 @@ import matplotlib as mpl
 from matplotlib import _api, colors, cbook, scale
 from matplotlib._cm import datad
 from matplotlib._cm_listed import cmaps as cmaps_listed
+import matplotlib.units as munits
 
 
 _LUTSIZE = mpl.rcParams['image.lut']
@@ -514,6 +515,34 @@ class ScalarMappable:
         rgba = self.cmap(x, alpha=alpha, bytes=bytes)
         return rgba
 
+    def _strip_units(self, A):
+        converter = munits.registry.get_converter(A)
+        if converter is None:
+            self._units = None
+            return A
+
+        try:
+            self._units = converter.default_units(A, self)
+        except Exception as e:
+            raise RuntimeError(
+                f'{converter} failed when trying to return the '
+                'default units for this image. This may be because '
+                f'{converter} has not implemented support for '
+                '`ScalarMappable`s in the default_units() method.'
+            ) from e
+
+        try:
+            A = converter.convert(A, self._units, self)
+        except Exception as e:
+            raise munits.ConversionError(
+                f'{converter} failed when trying to convert the units '
+                f'for this image. This may be because {converter} has '
+                'not implemented support for `ScalarMappable`s in the '
+                'convert() method.'
+            ) from e
+
+        return A
+
     def set_array(self, A):
         """
         Set the value array from array-like *A*.
@@ -529,7 +558,7 @@ class ScalarMappable:
         if A is None:
             self._A = None
             return
-
+        A = self._strip_units(A)
         A = cbook.safe_masked_invalid(A, copy=True)
         if not np.can_cast(A.dtype, float, "same_kind"):
             raise TypeError(f"Image data of dtype {A.dtype} cannot be "
