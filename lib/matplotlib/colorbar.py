@@ -12,6 +12,7 @@ In Matplotlib they are drawn into a dedicated `~.axes.Axes`.
 """
 
 import logging
+import warnings
 
 import numpy as np
 
@@ -291,7 +292,7 @@ class Colorbar:
                  drawedges=False,
                  extendfrac=None,
                  extendrect=False,
-                 label='',
+                 label=None,
                  location=None,
                  ):
 
@@ -370,6 +371,8 @@ class Colorbar:
         self.solids_patches = []
         self.lines = []
 
+        self._set_units_from_mappable()
+
         for spine in self.ax.spines.values():
             spine.set_visible(False)
         self.outline = self.ax.spines['outline'] = _ColorbarSpine(self.ax)
@@ -391,7 +394,8 @@ class Colorbar:
                 orientation) if location is None else location
         self.ticklocation = ticklocation
 
-        self.set_label(label)
+        if label is not None:
+            self.set_label(label)
         self._reset_locator_formatter_scale()
 
         if np.iterable(ticks):
@@ -1330,6 +1334,20 @@ class Colorbar:
                 self.norm.vmin, self.norm.vmax = points[:, 0]
             elif self.orientation == 'vertical':
                 self.norm.vmin, self.norm.vmax = points[:, 1]
+
+    def _set_units_from_mappable(self):
+        if self.mappable._units is not None:
+            axis = self._long_axis()
+            axis.units = self.mappable._units
+            axis.converter = self.mappable._converter
+            axis._update_axisinfo()
+
+            def warn_changing_units(*args):
+                warnings.warn("Changing units on a colorbar axis will not update "
+                              "the colors of the associated scalar being mapped")
+
+            axis.callbacks.connect("units", warn_changing_units)
+            axis.stale = True
 
 
 ColorbarBase = Colorbar  # Backcompat API
