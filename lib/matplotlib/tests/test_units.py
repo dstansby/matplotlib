@@ -319,4 +319,4 @@ def test_mappable_units(quantity_converter):
     # contourf
     ax = axs[2, 1]
     mappable = ax.contourf(x, y, data)
-    fig.colorbar(mappable, ax=ax)
+    fig.colorbar(mappable, ax=ax, orientation="horizontal")
