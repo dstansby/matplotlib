@@ -4428,7 +4428,10 @@ class Axes(_AxesBase):
             The facecolors as RGBA values, or *None* if a colormap is used.
         edgecolors
             The edgecolor.
-
+        units
+            The units of c. None if c doesn't have units.
+        converter
+            The converter used to convert c. None if c doesn't have units.
         """
         facecolors = kwargs.pop('facecolors', None)
         facecolors = kwargs.pop('facecolor', facecolors)
@@ -4457,6 +4460,7 @@ class Axes(_AxesBase):
         if edgecolors is None and not mpl.rcParams['_internal.classic_mode']:
             edgecolors = mpl.rcParams['scatter.edgecolors']
 
+        units, converter = None, None
         c_was_none = c is None
         if c is None:
             c = (facecolors if facecolors is not None
@@ -4476,6 +4480,7 @@ class Axes(_AxesBase):
         valid_shape = True  # Unless proven otherwise below.
         if not c_was_none and kwcolor is None and not c_is_string_or_strings:
             try:  # First, does 'c' look suitable for value-mapping?
+                c, units, converter = Axes._convert_C_units(c, mask=False)
                 c = np.asanyarray(c, dtype=float)
             except ValueError:
                 pass  # Failed to convert to float array; must be color specs.
@@ -4523,7 +4528,8 @@ class Axes(_AxesBase):
                     raise invalid_shape_exception(len(colors), xsize)
         else:
             colors = None  # use cmap, norm after collection is created
-        return c, colors, edgecolors
+
+        return c, colors, edgecolors, units, converter
 
     @_preprocess_data(replace_names=["x", "y", "s", "linewidths",
                                      "edgecolors", "c", "facecolor",
@@ -4690,10 +4696,10 @@ default: :rc:`scatter.edgecolors`
         orig_edgecolor = edgecolors
         if edgecolors is None:
             orig_edgecolor = kwargs.get('edgecolor', None)
-        c, colors, edgecolors = \
-            self._parse_scatter_color_args(
+        c, colors, edgecolors, units, converter = self._parse_scatter_color_args(
                 c, edgecolors, kwargs, x.size,
-                get_next_color_func=self._get_patches_for_fill.get_next_color)
+                get_next_color_func=self._get_patches_for_fill.get_next_color
+        )
 
         if plotnonfinite and colors is None:
             c = np.ma.masked_invalid(c)
@@ -4788,6 +4794,8 @@ default: :rc:`scatter.edgecolors`
                     "No data for colormapping provided via 'c'. "
                     f"Parameters {keys_str} will be ignored")
         collection._internal_update(kwargs)
+        collection._units = units
+        collection._converter = converter
 
         # Classic mode only:
         # ensure there are margins to allow for the
@@ -5797,14 +5805,16 @@ default: :rc:`scatter.edgecolors`
         return im
 
     @staticmethod
-    def _convert_C_units(C):
+    def _convert_C_units(C, mask=True):
+        # Create a dummy SclarMappable so we can reuse _strip_units()
         sm = cm.ScalarMappable()
         C = sm._strip_units(C)
         converter = sm._converter
         units = sm._units
 
         C = np.asanyarray(C)
-        C = cbook.safe_masked_invalid(C, copy=True)
+        if mask:
+            C = cbook.safe_masked_invalid(C, copy=True)
         return C, units, converter
 
     def _pcolorargs(self, funcname, *args, shading='auto', **kwargs):
