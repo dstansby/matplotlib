@@ -8,6 +8,7 @@ import numpy as np
 from numpy import ma
 
 import matplotlib as mpl
+import matplotlib.cm as cm
 import matplotlib.category  # Register category unit converter as side effect.
 import matplotlib.cbook as cbook
 import matplotlib.collections as mcoll
@@ -5795,12 +5796,24 @@ default: :rc:`scatter.edgecolors`
         self.add_image(im)
         return im
 
+    @staticmethod
+    def _convert_C_units(C):
+        sm = cm.ScalarMappable()
+        C = sm._strip_units(C)
+        converter = sm._converter
+        units = sm._units
+
+        C = np.asanyarray(C)
+        C = cbook.safe_masked_invalid(C, copy=True)
+        return C, units, converter
+
     def _pcolorargs(self, funcname, *args, shading='auto', **kwargs):
         # - create X and Y if not present;
         # - reshape X and Y as needed if they are 1-D;
         # - check for proper sizes based on `shading` kwarg;
         # - reset shading if shading='auto' to flat or nearest
         #   depending on size;
+        # - if C has units, get the converter
 
         _valid_shading = ['gouraud', 'nearest', 'flat', 'auto']
         try:
@@ -5812,7 +5825,7 @@ default: :rc:`scatter.edgecolors`
             shading = 'auto'
 
         if len(args) == 1:
-            C = np.asanyarray(args[0])
+            C, units, converter = self._convert_C_units(args[0])
             nrows, ncols = C.shape[:2]
             if shading in ['gouraud', 'nearest']:
                 X, Y = np.meshgrid(np.arange(ncols), np.arange(nrows))
@@ -5820,11 +5833,11 @@ default: :rc:`scatter.edgecolors`
                 X, Y = np.meshgrid(np.arange(ncols + 1), np.arange(nrows + 1))
                 shading = 'flat'
             C = cbook.safe_masked_invalid(C, copy=True)
-            return X, Y, C, shading
+            return X, Y, C, shading, units, converter
 
         if len(args) == 3:
             # Check x and y for bad data...
-            C = np.asanyarray(args[2])
+            C, units, converter = self._convert_C_units(args[2])
             # unit conversion allows e.g. datetime objects as axis values
             X, Y = args[:2]
             X, Y = self._process_unit_info([("x", X), ("y", Y)], kwargs)
@@ -5905,7 +5918,7 @@ default: :rc:`scatter.edgecolors`
                 shading = 'flat'
 
         C = cbook.safe_masked_invalid(C, copy=True)
-        return X, Y, C, shading
+        return X, Y, C, shading, units, converter
 
     @_preprocess_data()
     @_docstring.dedent_interpd
@@ -6057,8 +6070,9 @@ default: :rc:`scatter.edgecolors`
         if shading is None:
             shading = mpl.rcParams['pcolor.shading']
         shading = shading.lower()
-        X, Y, C, shading = self._pcolorargs('pcolor', *args, shading=shading,
-                                            kwargs=kwargs)
+        X, Y, C, shading, units, converter = self._pcolorargs(
+            'pcolor', *args, shading=shading, kwargs=kwargs
+        )
         linewidths = (0.25,)
         if 'linewidth' in kwargs:
             kwargs['linewidths'] = kwargs.pop('linewidth')
@@ -6094,6 +6108,8 @@ default: :rc:`scatter.edgecolors`
 
         collection = mcoll.PolyQuadMesh(
             coords, array=C, cmap=cmap, norm=norm, alpha=alpha, **kwargs)
+        collection._units = units
+        collection._converter = converter
         collection._scale_norm(norm, vmin, vmax)
 
         # Transform from native to data coordinates?
@@ -6313,8 +6329,9 @@ default: :rc:`scatter.edgecolors`
         shading = shading.lower()
         kwargs.setdefault('edgecolors', 'none')
 
-        X, Y, C, shading = self._pcolorargs('pcolormesh', *args,
-                                            shading=shading, kwargs=kwargs)
+        X, Y, C, shading, units, converter = self._pcolorargs(
+            'pcolormesh', *args, shading=shading, kwargs=kwargs
+        )
         coords = np.stack([X, Y], axis=-1)
 
         kwargs.setdefault('snap', mpl.rcParams['pcolormesh.snap'])
@@ -6322,6 +6339,8 @@ default: :rc:`scatter.edgecolors`
         collection = mcoll.QuadMesh(
             coords, antialiased=antialiased, shading=shading,
             array=C, cmap=cmap, norm=norm, alpha=alpha, **kwargs)
+        collection._units = units
+        collection._converter = converter
         collection._scale_norm(norm, vmin, vmax)
 
         coords = coords.reshape(-1, 2)  # flatten the grid structure; keep x, y
