@@ -1,23 +1,15 @@
 import collections.abc
-from collections.abc import Callable, Collection, Generator, Iterable, Iterator
+from collections.abc import (Callable, Collection, Generator, Iterable, Iterator,
+                             Sequence)
 import contextlib
 import os
 from pathlib import Path
-
-from matplotlib.artist import Artist
+from typing import IO, Any, Generic, Literal, TypeVar, overload
 
 import numpy as np
 from numpy.typing import ArrayLike
 
-from typing import (
-    Any,
-    Generic,
-    IO,
-    Literal,
-    TypeVar,
-    overload,
-)
-from collections.abc import Sequence
+from matplotlib.artist import Artist
 
 _T = TypeVar("_T")
 

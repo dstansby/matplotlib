@@ -13,13 +13,14 @@ from tempfile import TemporaryDirectory
 import uuid
 import warnings
 
-import numpy as np
 from PIL import Image
 
+import numpy as np
+
 import matplotlib as mpl
-from matplotlib._animation_data import (
-    DISPLAY_TEMPLATE, INCLUDED_FRAMES, JS_INCLUDE, STYLE_INCLUDE)
 from matplotlib import _api, cbook
+from matplotlib._animation_data import (DISPLAY_TEMPLATE, INCLUDED_FRAMES, JS_INCLUDE,
+                                        STYLE_INCLUDE)
 import matplotlib.colors as mcolors
 
 _log = logging.getLogger(__name__)

@@ -156,13 +156,13 @@ import tempfile
 
 from packaging.version import parse as parse_version
 
-# cbook must import matplotlib only within function
-# definitions, so it is safe to import from it here.
-from . import _api, _version, cbook, _docstring, rcsetup
 from matplotlib._api import MatplotlibDeprecationWarning
 from matplotlib.colors import _color_sequences as color_sequences
 from matplotlib.rcsetup import cycler  # noqa: F401
 
+# cbook must import matplotlib only within function
+# definitions, so it is safe to import from it here.
+from . import _api, _docstring, _version, cbook, rcsetup
 
 _log = logging.getLogger(__name__)
 
@@ -1544,6 +1544,6 @@ def validate_backend(s):
 
 # workaround: we must defer colormaps import to after loading rcParams, because
 # colormap creation depends on rcParams
+from matplotlib.cm import _bivar_colormaps as bivar_colormaps  # noqa: E402
 from matplotlib.cm import _colormaps as colormaps  # noqa: E402
 from matplotlib.cm import _multivar_colormaps as multivar_colormaps  # noqa: E402
-from matplotlib.cm import _bivar_colormaps as bivar_colormaps  # noqa: E402

@@ -37,15 +37,16 @@ of how to use transforms.
 
 import functools
 import itertools
+import math
 import textwrap
 import weakref
-import math
 
 import numpy as np
 from numpy.linalg import inv
 
 from matplotlib import _api
 from matplotlib._path import affine_transform, count_bboxes_overlapping_bbox
+
 from .path import Path
 
 DEBUG = False

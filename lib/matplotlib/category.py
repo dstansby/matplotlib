@@ -11,14 +11,14 @@ strings to integers and provides a tick locator, a tick formatter, and the
 """
 
 from collections import OrderedDict
-import dateutil.parser
 import itertools
 import logging
+
+import dateutil.parser
 
 import numpy as np
 
 from matplotlib import _api, cbook, ticker, units
-
 
 _log = logging.getLogger(__name__)
 

@@ -17,17 +17,17 @@ Interface::
               ...
 """
 
+from collections import namedtuple
 import dataclasses
 import enum
+from functools import cache, lru_cache, partial, wraps
 import logging
 import os
+from pathlib import Path
 import re
 import struct
 import subprocess
 import sys
-from collections import namedtuple
-from functools import cache, lru_cache, partial, wraps
-from pathlib import Path
 
 import numpy as np
 
@@ -1176,8 +1176,8 @@ _vffile = partial(_fontfile, Vf, ".vf")
 
 
 if __name__ == '__main__':
-    import itertools
     from argparse import ArgumentParser
+    import itertools
 
     import fontTools.agl
 

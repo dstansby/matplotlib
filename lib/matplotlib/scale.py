@@ -29,19 +29,19 @@ Custom scaling can be achieved through `FuncScale`, or by creating your own
 Third parties can register their scales by name through `register_scale`.
 """  # noqa: E501
 
+from functools import wraps
 import inspect
 import textwrap
-from functools import wraps
 
 import numpy as np
 
 import matplotlib as mpl
 from matplotlib import _api, _docstring
-from matplotlib.ticker import (
-    NullFormatter, ScalarFormatter, LogFormatterSciNotation, LogitFormatter,
-    NullLocator, LogLocator, AutoLocator, AutoMinorLocator,
-    SymmetricalLogLocator, AsinhLocator, LogitLocator)
-from matplotlib.transforms import Transform, IdentityTransform
+from matplotlib.ticker import (AsinhLocator, AutoLocator, AutoMinorLocator,
+                               LogFormatterSciNotation, LogitFormatter, LogitLocator,
+                               LogLocator, NullFormatter, NullLocator, ScalarFormatter,
+                               SymmetricalLogLocator)
+from matplotlib.transforms import IdentityTransform, Transform
 
 
 class ScaleBase:

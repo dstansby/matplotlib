@@ -20,22 +20,23 @@ import textwrap
 import time
 
 import fontTools
+
 import numpy as np
 
 import matplotlib as mpl
-from matplotlib import _api, cbook, _path, _text_helpers
-from matplotlib.backend_bases import (
-    _Backend, FigureCanvasBase, FigureManagerBase, RendererBase)
-from matplotlib.cbook import is_writable_file_like, file_requires_unicode
+from matplotlib import _api, _path, _text_helpers, cbook
+from matplotlib._mathtext_data import uni2type1
+from matplotlib.backend_bases import (FigureCanvasBase, FigureManagerBase, RendererBase,
+                                      _Backend)
+from matplotlib.backends.backend_mixed import MixedModeRenderer
+from matplotlib.cbook import file_requires_unicode, is_writable_file_like
 from matplotlib.font_manager import get_font
 from matplotlib.ft2font import LoadFlags
-from matplotlib._mathtext_data import uni2type1
 from matplotlib.path import Path
 from matplotlib.texmanager import TexManager
 from matplotlib.transforms import Affine2D
-from matplotlib.backends.backend_mixed import MixedModeRenderer
-from . import _backend_pdf_ps
 
+from . import _backend_pdf_ps
 
 _log = logging.getLogger(__name__)
 debugPS = False

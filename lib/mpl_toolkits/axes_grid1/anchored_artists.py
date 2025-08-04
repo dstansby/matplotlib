@@ -1,8 +1,7 @@
 from matplotlib import transforms
-from matplotlib.offsetbox import (AnchoredOffsetbox, AuxTransformBox,
-                                  DrawingArea, TextArea, VPacker)
-from matplotlib.patches import (Rectangle, ArrowStyle,
-                                FancyArrowPatch, PathPatch)
+from matplotlib.offsetbox import (AnchoredOffsetbox, AuxTransformBox, DrawingArea,
+                                  TextArea, VPacker)
+from matplotlib.patches import ArrowStyle, FancyArrowPatch, PathPatch, Rectangle
 from matplotlib.text import TextPath
 
 __all__ = ['AnchoredDrawingArea', 'AnchoredAuxTransformBox',

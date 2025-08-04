@@ -8,10 +8,10 @@ from types import SimpleNamespace
 import numpy as np
 
 import matplotlib as mpl
-from matplotlib.path import Path
-from matplotlib.patches import PathPatch
-from matplotlib.transforms import Affine2D
 from matplotlib import _docstring
+from matplotlib.patches import PathPatch
+from matplotlib.path import Path
+from matplotlib.transforms import Affine2D
 
 _log = logging.getLogger(__name__)
 

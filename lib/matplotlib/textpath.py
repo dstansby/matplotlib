@@ -5,9 +5,9 @@ import urllib.parse
 import numpy as np
 
 from matplotlib import _text_helpers, dviread
-from matplotlib.font_manager import (
-    FontProperties, get_font, fontManager as _fontManager
-)
+from matplotlib.font_manager import FontProperties
+from matplotlib.font_manager import fontManager as _fontManager
+from matplotlib.font_manager import get_font
 from matplotlib.ft2font import LoadFlags
 from matplotlib.mathtext import MathTextParser
 from matplotlib.path import Path

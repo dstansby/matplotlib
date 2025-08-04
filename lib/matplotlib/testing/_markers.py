@@ -7,10 +7,9 @@ import shutil
 
 import pytest
 
+from matplotlib import ExecutableNotFoundError, _get_executable_info
 import matplotlib.testing
 import matplotlib.testing.compare
-from matplotlib import _get_executable_info, ExecutableNotFoundError
-
 
 _log = logging.getLogger(__name__)
 

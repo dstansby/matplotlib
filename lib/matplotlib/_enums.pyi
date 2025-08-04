@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class JoinStyle(str, Enum):
     miter = "miter"
     round = "round"

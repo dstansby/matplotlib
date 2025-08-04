@@ -18,11 +18,10 @@ The simplest method to customize the tick locations and formats is to use
 `~.axes.Axes.set_xticks` and `~.axes.Axes.set_yticks`.  These can be used on
 either the major or the minor ticks.
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 import matplotlib.ticker as ticker
-
 
 fig, axs = plt.subplots(2, 1, figsize=(5.4, 5.4), layout='constrained')
 x = np.arange(100)

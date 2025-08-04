@@ -9,16 +9,16 @@ import json
 import pathlib
 import uuid
 
+from IPython.display import HTML, Javascript, display
 from ipykernel.comm import Comm
-from IPython.display import display, Javascript, HTML
 
 from matplotlib import is_interactive
 from matplotlib._pylab_helpers import Gcf
-from matplotlib.backend_bases import _Backend, CloseEvent, NavigationToolbar2
-from .backend_webagg_core import (
-    FigureCanvasWebAggCore, FigureManagerWebAgg, NavigationToolbar2WebAgg)
+from matplotlib.backend_bases import CloseEvent, NavigationToolbar2, _Backend
+
 from .backend_webagg_core import (  # noqa: F401 # pylint: disable=W0611
-    TimerTornado, TimerAsyncio)
+    FigureCanvasWebAggCore, FigureManagerWebAgg, NavigationToolbar2WebAgg, TimerAsyncio,
+    TimerTornado)
 
 
 def connection_info():

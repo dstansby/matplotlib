@@ -12,7 +12,6 @@ from tempfile import TemporaryDirectory
 import time
 import tokenize
 
-
 _preamble = """\
 from matplotlib import pyplot as plt
 

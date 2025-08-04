@@ -127,17 +127,17 @@ Examples showing the use of markers:
 .. |m36| image:: /_static/markers/m36.png
 .. |m37| image:: /_static/markers/m37.png
 """
-import copy
-
 from collections.abc import Sized
+import copy
 
 import numpy as np
 
 import matplotlib as mpl
+
 from . import _api, cbook
+from ._enums import CapStyle, JoinStyle
 from .path import Path
-from .transforms import IdentityTransform, Affine2D
-from ._enums import JoinStyle, CapStyle
+from .transforms import Affine2D, IdentityTransform
 
 # special-purpose marker identifiers:
 (TICKLEFT, TICKRIGHT, TICKUP, TICKDOWN,

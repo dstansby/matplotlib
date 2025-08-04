@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 
-
 fig, axs = plt.subplots(2, 2, figsize=(6.5, 4))
 fig.set_facecolor('lightblue')
 fig.subplots_adjust(0.1, 0.1, 0.9, 0.9, 0.4, 0.4)

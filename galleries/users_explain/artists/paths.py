@@ -18,9 +18,8 @@ codes.  For example to draw the unit rectangle from (0, 0) to (1, 1), we
 could use this code:
 """
 
-import numpy as np
-
 import matplotlib.pyplot as plt
+import numpy as np
 
 import matplotlib.patches as patches
 from matplotlib.path import Path

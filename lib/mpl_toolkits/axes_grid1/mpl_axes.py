@@ -1,5 +1,5 @@
-import matplotlib.axes as maxes
 from matplotlib.artist import Artist
+import matplotlib.axes as maxes
 from matplotlib.axis import XAxis, YAxis
 
 

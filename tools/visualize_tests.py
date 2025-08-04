@@ -7,8 +7,8 @@
 #
 
 import argparse
-import os
 from collections import defaultdict
+import os
 
 # Non-png image extensions
 NON_PNG_EXTENSIONS = ['pdf', 'svg', 'eps']

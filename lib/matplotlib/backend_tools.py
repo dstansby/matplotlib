@@ -22,8 +22,8 @@ from weakref import WeakKeyDictionary
 import numpy as np
 
 import matplotlib as mpl
-from matplotlib._pylab_helpers import Gcf
 from matplotlib import _api, cbook
+from matplotlib._pylab_helpers import Gcf
 
 
 class Cursors(enum.IntEnum):  # Must subclass int for the macOS backend.

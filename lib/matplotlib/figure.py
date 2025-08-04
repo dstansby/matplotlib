@@ -27,9 +27,9 @@ list of examples) .  More information about Figures can be found at
 """
 
 from contextlib import ExitStack
+import functools
 import inspect
 import itertools
-import functools
 import logging
 from numbers import Integral
 import threading
@@ -37,27 +37,22 @@ import threading
 import numpy as np
 
 import matplotlib as mpl
-from matplotlib import _blocking_input, backend_bases, _docstring, projections
-from matplotlib.artist import (
-    Artist, allow_rasterization, _finalize_rasterization)
-from matplotlib.backend_bases import (
-    DrawEvent, FigureCanvasBase, NonGuiException, MouseButton, _get_renderer)
+from matplotlib import _blocking_input, _docstring, backend_bases, projections
 import matplotlib._api as _api
+from matplotlib.artist import Artist, _finalize_rasterization, allow_rasterization
+from matplotlib.axes import Axes
+from matplotlib.backend_bases import (DrawEvent, FigureCanvasBase, MouseButton,
+                                      NonGuiException, _get_renderer)
 import matplotlib.cbook as cbook
 import matplotlib.colorbar as cbar
-import matplotlib.image as mimage
-
-from matplotlib.axes import Axes
 from matplotlib.gridspec import GridSpec, SubplotParams
-from matplotlib.layout_engine import (
-    ConstrainedLayoutEngine, TightLayoutEngine, LayoutEngine,
-    PlaceHolderLayoutEngine
-)
+import matplotlib.image as mimage
+from matplotlib.layout_engine import (ConstrainedLayoutEngine, LayoutEngine,
+                                      PlaceHolderLayoutEngine, TightLayoutEngine)
 import matplotlib.legend as mlegend
 from matplotlib.patches import Rectangle
 from matplotlib.text import Text
-from matplotlib.transforms import (Affine2D, Bbox, BboxTransformTo,
-                                   TransformedBbox)
+from matplotlib.transforms import Affine2D, Bbox, BboxTransformTo, TransformedBbox
 
 _log = logging.getLogger(__name__)
 
@@ -3314,6 +3309,7 @@ None}, default: None
         if restore_to_pylab:
             # lazy import to avoid circularity
             import matplotlib.pyplot as plt
+
             import matplotlib._pylab_helpers as pylab_helpers
             allnums = plt.get_fignums()
             num = max(allnums) + 1 if allnums else 1

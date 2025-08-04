@@ -3,17 +3,18 @@ import os
 import pathlib
 from typing import Any, BinaryIO, Literal
 
-import numpy as np
-from numpy.typing import ArrayLike, NDArray
 import PIL.Image
 
-from matplotlib.axes import Axes
+import numpy as np
+from numpy.typing import ArrayLike, NDArray
+
 from matplotlib import colorizer
-from matplotlib.backend_bases import RendererBase, MouseEvent
+from matplotlib.axes import Axes
+from matplotlib.backend_bases import MouseEvent, RendererBase
 from matplotlib.colorizer import Colorizer
 from matplotlib.colors import Colormap, Normalize
 from matplotlib.figure import Figure
-from matplotlib.transforms import Affine2D, BboxBase, Bbox, Transform
+from matplotlib.transforms import Affine2D, Bbox, BboxBase, Transform
 
 #
 # These names are re-exported from matplotlib._image.

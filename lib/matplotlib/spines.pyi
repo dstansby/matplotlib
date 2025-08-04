@@ -1,9 +1,9 @@
 from collections.abc import Callable, Iterator, MutableMapping
 from typing import Literal, TypeVar, overload
 
-import matplotlib.patches as mpatches
 from matplotlib.axes import Axes
 from matplotlib.axis import Axis
+import matplotlib.patches as mpatches
 from matplotlib.path import Path
 from matplotlib.transforms import Transform
 from matplotlib.typing import ColorType

@@ -1,9 +1,10 @@
 from pathlib import Path
 import shutil
 
-import numpy as np
 import pytest
 from pytest import approx
+
+import numpy as np
 
 from matplotlib import _image
 from matplotlib.testing.compare import compare_images

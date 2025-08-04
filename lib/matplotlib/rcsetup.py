@@ -20,18 +20,19 @@ import operator
 import os
 import re
 
+# Don't let the original cycler collide with our validating cycler
+from cycler import Cycler
+from cycler import cycler as ccycler
+
 import numpy as np
 
 import matplotlib as mpl
 from matplotlib import _api, cbook
+from matplotlib._enums import CapStyle, JoinStyle
+from matplotlib._fontconfig_pattern import parse_fontconfig_pattern
 from matplotlib.backends import backend_registry
 from matplotlib.cbook import ls_mapper
 from matplotlib.colors import Colormap, is_color_like
-from matplotlib._fontconfig_pattern import parse_fontconfig_pattern
-from matplotlib._enums import JoinStyle, CapStyle
-
-# Don't let the original cycler collide with our validating cycler
-from cycler import Cycler, cycler as ccycler
 
 
 class ValidateInStrings:

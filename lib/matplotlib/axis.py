@@ -18,9 +18,9 @@ import matplotlib.lines as mlines
 import matplotlib.scale as mscale
 import matplotlib.text as mtext
 import matplotlib.ticker as mticker
+from matplotlib.ticker import NullLocator
 import matplotlib.transforms as mtransforms
 import matplotlib.units as munits
-from matplotlib.ticker import NullLocator
 
 _log = logging.getLogger(__name__)
 

@@ -20,10 +20,11 @@ import logging
 
 import matplotlib as mpl
 from matplotlib import _api, _mathtext
-from matplotlib.ft2font import LoadFlags
 from matplotlib.font_manager import FontProperties
-from ._mathtext import (  # noqa: F401, reexported API
-    RasterParse, VectorParse, get_unicode_index)
+from matplotlib.ft2font import LoadFlags
+
+from ._mathtext import (RasterParse, VectorParse,  # noqa: F401, reexported API
+                        get_unicode_index)
 
 _log = logging.getLogger(__name__)
 

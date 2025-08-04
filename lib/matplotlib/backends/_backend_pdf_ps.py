@@ -2,13 +2,14 @@
 Common functionality between the PDF and PS backends.
 """
 
-from io import BytesIO
 import functools
+from io import BytesIO
 import logging
 
 from fontTools import subset
 
 import matplotlib as mpl
+
 from .. import font_manager, ft2font
 from .._afm import AFM
 from ..backend_bases import RendererBase

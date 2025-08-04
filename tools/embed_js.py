@@ -9,7 +9,6 @@ import shutil
 import subprocess
 import sys
 
-
 Package = namedtuple('Package', [
     # The package to embed, in some form that `npm install` can use.
     'name',

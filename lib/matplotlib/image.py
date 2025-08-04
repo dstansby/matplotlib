@@ -3,30 +3,29 @@ The image module supports basic image loading, rescaling and display
 operations.
 """
 
+import logging
 import math
 import os
-import logging
 from pathlib import Path
 import warnings
 
-import numpy as np
 import PIL.Image
 import PIL.PngImagePlugin
 
+import numpy as np
+
 import matplotlib as mpl
-from matplotlib import _api, cbook
 # For clarity, names from _image are given explicitly in this module
-from matplotlib import _image
+from matplotlib import _api, _image, cbook
 # For user convenience, the names from _image are also imported into
 # the image namespace
 from matplotlib._image import *  # noqa: F401, F403
 import matplotlib.artist as martist
-import matplotlib.colorizer as mcolorizer
 from matplotlib.backend_bases import FigureCanvasBase
+import matplotlib.colorizer as mcolorizer
 import matplotlib.colors as mcolors
-from matplotlib.transforms import (
-    Affine2D, BboxBase, Bbox, BboxTransform, BboxTransformTo,
-    IdentityTransform, TransformedBbox)
+from matplotlib.transforms import (Affine2D, Bbox, BboxBase, BboxTransform,
+                                   BboxTransformTo, IdentityTransform, TransformedBbox)
 
 _log = logging.getLogger(__name__)
 

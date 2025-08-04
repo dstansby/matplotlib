@@ -23,10 +23,8 @@ Third parties can create their own layout engine by subclassing `.LayoutEngine`.
 from contextlib import nullcontext
 
 import matplotlib as mpl
-
 from matplotlib._constrained_layout import do_constrained_layout
-from matplotlib._tight_layout import (get_subplotspec_list,
-                                      get_tight_layout_figure)
+from matplotlib._tight_layout import get_subplotspec_list, get_tight_layout_figure
 
 
 class LayoutEngine:

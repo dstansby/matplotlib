@@ -1,7 +1,6 @@
 from enum import Enum
 from types import ModuleType
 
-
 class BackendFilter(Enum):
     INTERACTIVE = 0
     NON_INTERACTIVE = 1

@@ -15,14 +15,17 @@ import itertools
 from numbers import Integral, Number
 
 from cycler import cycler
+
 import numpy as np
 
 import matplotlib as mpl
-from . import (_api, _docstring, backend_tools, cbook, collections, colors,
-               text as mtext, ticker, transforms)
+
+from . import _api, _docstring, backend_tools, cbook, collections, colors
+from . import text as mtext
+from . import ticker, transforms
 from .lines import Line2D
-from .patches import Rectangle, Ellipse, Polygon
-from .transforms import TransformedPatchPath, Affine2D
+from .patches import Ellipse, Polygon, Rectangle
+from .transforms import Affine2D, TransformedPatchPath
 
 
 class LockDraw:

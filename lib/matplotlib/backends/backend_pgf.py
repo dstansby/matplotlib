@@ -14,17 +14,16 @@ import weakref
 from PIL import Image
 
 import matplotlib as mpl
-from matplotlib import cbook, font_manager as fm
-from matplotlib.backend_bases import (
-    _Backend, FigureCanvasBase, FigureManagerBase, RendererBase
-)
+from matplotlib import cbook
+from matplotlib import font_manager as fm
+from matplotlib._pylab_helpers import Gcf
+from matplotlib.backend_bases import (FigureCanvasBase, FigureManagerBase, RendererBase,
+                                      _Backend)
 from matplotlib.backends.backend_mixed import MixedModeRenderer
-from matplotlib.backends.backend_pdf import (
-    _create_pdf_info_dict, _datetime_to_pdf)
-from matplotlib.path import Path
+from matplotlib.backends.backend_pdf import _create_pdf_info_dict, _datetime_to_pdf
 from matplotlib.figure import Figure
 from matplotlib.font_manager import FontProperties
-from matplotlib._pylab_helpers import Gcf
+from matplotlib.path import Path
 
 _log = logging.getLogger(__name__)
 

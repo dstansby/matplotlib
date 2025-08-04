@@ -13,17 +13,18 @@ from numpy import ma
 import matplotlib as mpl
 from matplotlib import _api, _docstring
 from matplotlib.backend_bases import MouseButton
+import matplotlib.cbook as cbook
+import matplotlib.cm as cm
+import matplotlib.collections as mcoll
+import matplotlib.colors as mcolors
+import matplotlib.font_manager as font_manager
 from matplotlib.lines import Line2D
+import matplotlib.patches as mpatches
 from matplotlib.path import Path
 from matplotlib.text import Text
 import matplotlib.ticker as ticker
-import matplotlib.cm as cm
-import matplotlib.colors as mcolors
-import matplotlib.collections as mcoll
-import matplotlib.font_manager as font_manager
-import matplotlib.cbook as cbook
-import matplotlib.patches as mpatches
 import matplotlib.transforms as mtransforms
+
 from . import artist
 
 

@@ -10,9 +10,9 @@ import matplotlib.axis as maxis
 import matplotlib.markers as mmarkers
 import matplotlib.patches as mpatches
 from matplotlib.path import Path
+from matplotlib.spines import Spine
 import matplotlib.ticker as mticker
 import matplotlib.transforms as mtransforms
-from matplotlib.spines import Spine
 
 
 class PolarTransform(mtransforms.Transform):

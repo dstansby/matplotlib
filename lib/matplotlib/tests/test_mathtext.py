@@ -8,17 +8,19 @@ import textwrap
 from typing import Any
 from xml.etree import ElementTree as ET
 
-import numpy as np
 from packaging.version import parse as parse_version
 import pyparsing
 import pytest
 
+import matplotlib.pyplot as plt
+import numpy as np
 
 import matplotlib as mpl
-from matplotlib.testing.decorators import check_figures_equal, image_comparison
-import matplotlib.pyplot as plt
-from matplotlib import font_manager as fm, mathtext, _mathtext
+from matplotlib import _mathtext
+from matplotlib import font_manager as fm
+from matplotlib import mathtext
 from matplotlib.ft2font import LoadFlags
+from matplotlib.testing.decorators import check_figures_equal, image_comparison
 
 pyparsing_version = parse_version(pyparsing.__version__)
 

@@ -12,7 +12,6 @@ from pathlib import Path
 import sys
 import zipfile
 
-
 if len(sys.argv) <= 1:
     sys.exit('At least one wheel must be specified in command-line arguments.')
 

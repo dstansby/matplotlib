@@ -663,8 +663,7 @@ ax.add_artist(box)
 # artist can then be automatically positioned relative to another artist using
 # `.HPacker` and `.VPacker`:
 
-from matplotlib.offsetbox import (AnchoredOffsetbox, DrawingArea, HPacker,
-                                  TextArea)
+from matplotlib.offsetbox import AnchoredOffsetbox, DrawingArea, HPacker, TextArea
 
 fig, ax = plt.subplots(figsize=(3, 3))
 

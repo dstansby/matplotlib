@@ -18,13 +18,12 @@ from collections.abc import Mapping
 
 import matplotlib as mpl
 from matplotlib import _api, colors
-# TODO make this warn on access
-from matplotlib.colorizer import _ScalarMappable as ScalarMappable  # noqa
 from matplotlib._cm import datad
+from matplotlib._cm_bivar import cmaps as bivar_cmaps
 from matplotlib._cm_listed import cmaps as cmaps_listed
 from matplotlib._cm_multivar import cmap_families as multivar_cmaps
-from matplotlib._cm_bivar import cmaps as bivar_cmaps
-
+# TODO make this warn on access
+from matplotlib.colorizer import _ScalarMappable as ScalarMappable  # noqa
 
 _LUTSIZE = mpl.rcParams['image.lut']
 

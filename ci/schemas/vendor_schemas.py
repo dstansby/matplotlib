@@ -10,7 +10,6 @@ import os
 import pathlib
 import urllib.request
 
-
 HERE = pathlib.Path(__file__).parent
 SCHEMAS = [
     'https://json.schemastore.org/appveyor.json',

@@ -29,9 +29,7 @@ from pathlib import Path
 import shutil
 import sys
 
-from matplotlib.backends.qt_compat import QtCore, QtGui, QtWidgets
-from matplotlib.backends.qt_compat import _exec
-
+from matplotlib.backends.qt_compat import QtCore, QtGui, QtWidgets, _exec
 
 # matplotlib stores the baseline images under two separate subtrees,
 # but these are all flattened in the result_images directory.  In

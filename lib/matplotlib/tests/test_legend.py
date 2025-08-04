@@ -6,22 +6,23 @@ import time
 from unittest import mock
 import warnings
 
-import numpy as np
-from numpy.testing import assert_allclose
 import pytest
 
-from matplotlib.testing.decorators import check_figures_equal, image_comparison
-from matplotlib.testing._markers import needs_usetex
 import matplotlib.pyplot as plt
+import numpy as np
+from numpy.testing import assert_allclose
+
 import matplotlib as mpl
-import matplotlib.patches as mpatches
-import matplotlib.transforms as mtransforms
-import matplotlib.collections as mcollections
-import matplotlib.lines as mlines
-from matplotlib.legend_handler import HandlerTuple
-import matplotlib.legend as mlegend
 from matplotlib import rc_context
+import matplotlib.collections as mcollections
 from matplotlib.font_manager import FontProperties
+import matplotlib.legend as mlegend
+from matplotlib.legend_handler import HandlerTuple
+import matplotlib.lines as mlines
+import matplotlib.patches as mpatches
+from matplotlib.testing._markers import needs_usetex
+from matplotlib.testing.decorators import check_figures_equal, image_comparison
+import matplotlib.transforms as mtransforms
 
 
 def test_legend_ordereddict():

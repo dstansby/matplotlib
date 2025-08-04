@@ -1,15 +1,15 @@
-import matplotlib.artist as martist
-import matplotlib.collections as mcollections
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure, SubFigure
-from matplotlib.text import Text
-from matplotlib.transforms import Transform, Bbox
-
+from collections.abc import Sequence
+from typing import Any, Literal, overload
 
 import numpy as np
 from numpy.typing import ArrayLike
-from collections.abc import Sequence
-from typing import Any, Literal, overload
+
+import matplotlib.artist as martist
+from matplotlib.axes import Axes
+import matplotlib.collections as mcollections
+from matplotlib.figure import Figure, SubFigure
+from matplotlib.text import Text
+from matplotlib.transforms import Bbox, Transform
 from matplotlib.typing import ColorType
 
 class QuiverKey(martist.Artist):

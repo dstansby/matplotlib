@@ -17,8 +17,10 @@ its column(s) and row(s) specified when it is created.
 """
 
 import itertools
-import kiwisolver as kiwi
 import logging
+
+import kiwisolver as kiwi
+
 import numpy as np
 
 import matplotlib as mpl

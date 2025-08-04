@@ -1,12 +1,10 @@
+from collections.abc import Generator
 import dataclasses
-from pathlib import Path
+from enum import Enum
 import io
 import os
-from enum import Enum
-from collections.abc import Generator
-
-from typing import NamedTuple
-from typing import Self
+from pathlib import Path
+from typing import NamedTuple, Self
 
 class _dvistate(Enum):
     pre = ...

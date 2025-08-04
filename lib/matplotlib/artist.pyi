@@ -1,22 +1,16 @@
-from .axes._base import _AxesBase
-from .backend_bases import RendererBase, MouseEvent
-from .figure import Figure, SubFigure
-from .path import Path
-from .patches import Patch
-from .patheffects import AbstractPathEffect
-from .transforms import (
-    BboxBase,
-    Bbox,
-    Transform,
-    TransformedPatchPath,
-    TransformedPath,
-)
+from collections.abc import Callable, Iterable
+from typing import Any, Literal, NamedTuple, TextIO, TypeVar, overload
 
 import numpy as np
-
-from collections.abc import Callable, Iterable
-from typing import Any, Literal, NamedTuple, TextIO, overload, TypeVar
 from numpy.typing import ArrayLike
+
+from .axes._base import _AxesBase
+from .backend_bases import MouseEvent, RendererBase
+from .figure import Figure, SubFigure
+from .patches import Patch
+from .path import Path
+from .patheffects import AbstractPathEffect
+from .transforms import Bbox, BboxBase, Transform, TransformedPatchPath, TransformedPath
 
 _T_Artist = TypeVar("_T_Artist", bound=Artist)
 

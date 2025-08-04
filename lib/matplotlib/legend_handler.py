@@ -32,9 +32,9 @@ from itertools import cycle
 import numpy as np
 
 from matplotlib import cbook
+import matplotlib.collections as mcoll
 from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
-import matplotlib.collections as mcoll
 
 
 def update_from_first_child(tgt, src):

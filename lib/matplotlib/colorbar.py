@@ -16,14 +16,13 @@ import logging
 import numpy as np
 
 import matplotlib as mpl
-from matplotlib import _api, cbook, collections, colors, contour, ticker
+from matplotlib import _api, _docstring, cbook, collections, colors, contour, ticker
 import matplotlib.artist as martist
 import matplotlib.colorizer as mcolorizer
 import matplotlib.patches as mpatches
 import matplotlib.path as mpath
 import matplotlib.spines as mspines
 import matplotlib.transforms as mtransforms
-from matplotlib import _docstring
 
 _log = logging.getLogger(__name__)
 

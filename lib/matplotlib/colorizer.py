@@ -24,8 +24,8 @@ import functools
 import numpy as np
 from numpy import ma
 
-from matplotlib import _api, colors, cbook, scale, artist
 import matplotlib as mpl
+from matplotlib import _api, artist, cbook, colors, scale
 
 mpl._docstring.interpd.register(
     colorizer_doc="""\

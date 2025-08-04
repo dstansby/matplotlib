@@ -1,11 +1,12 @@
 import re
 
-import numpy as np
 import pytest
 
-from mpl_toolkits.axisartist.angle_helper import (
-    FormatterDMS, FormatterHMS, select_step, select_step24, select_step360)
+import numpy as np
 
+from mpl_toolkits.axisartist.angle_helper import (FormatterDMS, FormatterHMS,
+                                                  select_step, select_step24,
+                                                  select_step360)
 
 _MS_RE = (
     r'''\$  # Mathtext

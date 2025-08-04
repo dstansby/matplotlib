@@ -9,8 +9,8 @@ they are meant to be fast for common use cases (e.g., a large set of solid
 line segments).
 """
 
-import itertools
 import functools
+import itertools
 import math
 from numbers import Number, Real
 import warnings
@@ -18,9 +18,15 @@ import warnings
 import numpy as np
 
 import matplotlib as mpl
-from . import (_api, _path, artist, cbook, colorizer as mcolorizer, colors as mcolors,
-               _docstring, hatch as mhatch, lines as mlines, path as mpath, transforms)
-from ._enums import JoinStyle, CapStyle
+
+from . import _api, _docstring, _path, artist, cbook
+from . import colorizer as mcolorizer
+from . import colors as mcolors
+from . import hatch as mhatch
+from . import lines as mlines
+from . import path as mpath
+from . import transforms
+from ._enums import CapStyle, JoinStyle
 
 
 # "color" is excluded; it is a compound setter, and its docstring differs

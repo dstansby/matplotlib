@@ -7,8 +7,7 @@ import matplotlib.axis as maxis
 from matplotlib.patches import Circle
 from matplotlib.path import Path
 import matplotlib.spines as mspines
-from matplotlib.ticker import (
-    Formatter, NullLocator, FixedLocator, NullFormatter)
+from matplotlib.ticker import FixedLocator, Formatter, NullFormatter, NullLocator
 from matplotlib.transforms import Affine2D, BboxTransformTo, Transform
 
 

@@ -53,99 +53,71 @@ import time
 from typing import IO, TYPE_CHECKING, cast, overload
 
 from cycler import cycler  # noqa: F401
-import matplotlib
-import matplotlib.colorbar
-import matplotlib.image
-from matplotlib import _api
-# Re-exported (import x as x) for typing.
-from matplotlib import get_backend as get_backend, rcParams as rcParams
-from matplotlib import cm as cm  # noqa: F401
-from matplotlib import style as style  # noqa: F401
-from matplotlib import _pylab_helpers
-from matplotlib import interactive  # noqa: F401
-from matplotlib import cbook
-from matplotlib import _docstring
-from matplotlib.backend_bases import (
-    FigureCanvasBase, FigureManagerBase, MouseButton)
-from matplotlib.figure import Figure, FigureBase, figaspect
-from matplotlib.gridspec import GridSpec, SubplotSpec
-from matplotlib import rcsetup, rcParamsDefault, rcParamsOrig
-from matplotlib.artist import Artist
-from matplotlib.axes import Axes
-from matplotlib.axes import Subplot  # noqa: F401
-from matplotlib.backends import BackendFilter, backend_registry
-from matplotlib.projections import PolarAxes
-from matplotlib.colorizer import _ColorizerInterface, ColorizingArtist, Colorizer
-from matplotlib import mlab  # for detrend_none, window_hanning
-from matplotlib.scale import get_scale_names  # noqa: F401
-
-from matplotlib.cm import _colormaps
-from matplotlib.colors import _color_sequences, Colormap
 
 import numpy as np
 
+import matplotlib
+from matplotlib import _api, _docstring, _pylab_helpers, cbook
+from matplotlib import cm as cm  # noqa: F401
+from matplotlib import get_backend as get_backend
+# Re-exported (import x as x) for typing.
+from matplotlib import interactive  # noqa: F401
+from matplotlib import mlab  # for detrend_none, window_hanning
+from matplotlib import rcParams as rcParams
+from matplotlib import rcParamsDefault, rcParamsOrig, rcsetup
+from matplotlib import style as style  # noqa: F401
+from matplotlib.artist import Artist
+from matplotlib.axes import Axes
+from matplotlib.axes import Subplot  # noqa: F401
+from matplotlib.backend_bases import FigureCanvasBase, FigureManagerBase, MouseButton
+from matplotlib.backends import BackendFilter, backend_registry
+from matplotlib.cm import _colormaps
+import matplotlib.colorbar
+from matplotlib.colorizer import Colorizer, ColorizingArtist, _ColorizerInterface
+from matplotlib.colors import Colormap, _color_sequences
+from matplotlib.figure import Figure, FigureBase, figaspect
+from matplotlib.gridspec import GridSpec, SubplotSpec
+import matplotlib.image
+from matplotlib.projections import PolarAxes
+from matplotlib.scale import get_scale_names  # noqa: F401
+
 if TYPE_CHECKING:
     from collections.abc import Callable, Hashable, Iterable, Sequence
-    import pathlib
     import os
+    import pathlib
     from typing import Any, BinaryIO, Literal, TypeVar
-    from typing_extensions import ParamSpec
 
     import PIL.Image
-    from numpy.typing import ArrayLike
     import pandas as pd
+    from typing_extensions import ParamSpec
 
-    import matplotlib.axes
+    from numpy.typing import ArrayLike
+
     import matplotlib.artist
-    import matplotlib.backend_bases
-    from matplotlib.axis import Tick
+    import matplotlib.axes
     from matplotlib.axes._base import _AxesBase
-    from matplotlib.backend_bases import (
-        CloseEvent,
-        DrawEvent,
-        KeyEvent,
-        MouseEvent,
-        PickEvent,
-        ResizeEvent,
-    )
+    from matplotlib.axis import Tick
+    import matplotlib.backend_bases
+    from matplotlib.backend_bases import (CloseEvent, DrawEvent, KeyEvent, MouseEvent,
+                                          PickEvent, ResizeEvent)
     from matplotlib.cm import ScalarMappable
-    from matplotlib.contour import ContourSet, QuadContourSet
-    from matplotlib.collections import (
-        Collection,
-        FillBetweenPolyCollection,
-        LineCollection,
-        PolyCollection,
-        PathCollection,
-        EventCollection,
-        QuadMesh,
-    )
+    from matplotlib.collections import (Collection, EventCollection,
+                                        FillBetweenPolyCollection, LineCollection,
+                                        PathCollection, PolyCollection, QuadMesh)
     from matplotlib.colorbar import Colorbar
-    from matplotlib.container import (
-        BarContainer,
-        ErrorbarContainer,
-        StemContainer,
-    )
+    from matplotlib.container import BarContainer, ErrorbarContainer, StemContainer
+    from matplotlib.contour import ContourSet, QuadContourSet
     from matplotlib.figure import SubFigure
+    from matplotlib.image import AxesImage, FigureImage
     from matplotlib.legend import Legend
     from matplotlib.mlab import GaussianKDE
-    from matplotlib.image import AxesImage, FigureImage
     from matplotlib.patches import FancyArrow, StepPatch, Wedge
     from matplotlib.quiver import Barbs, Quiver, QuiverKey
     from matplotlib.scale import ScaleBase
-    from matplotlib.typing import (
-        CloseEventType,
-        ColorType,
-        CoordsType,
-        DrawEventType,
-        HashableList,
-        KeyEventType,
-        LineStyleType,
-        MarkerType,
-        MouseEventType,
-        PickEventType,
-        ResizeEventType,
-        LogLevel
-    )
+    from matplotlib.typing import (CloseEventType, ColorType, CoordsType, DrawEventType,
+                                   HashableList, KeyEventType, LineStyleType, LogLevel,
+                                   MarkerType, MouseEventType, PickEventType,
+                                   ResizeEventType)
     from matplotlib.widgets import SubplotTool
 
     _P = ParamSpec('_P')
@@ -155,17 +127,16 @@ if TYPE_CHECKING:
 
 # We may not need the following imports here:
 from matplotlib.colors import Normalize
-from matplotlib.lines import Line2D, AxLine
-from matplotlib.text import Text, Annotation
-from matplotlib.patches import Arrow, Circle, Rectangle  # noqa: F401
-from matplotlib.patches import Polygon
+from matplotlib.lines import AxLine, Line2D
+from matplotlib.patches import Arrow, Circle, Polygon, Rectangle  # noqa: F401
+from matplotlib.text import Annotation, Text
 from matplotlib.widgets import Button, Slider, Widget  # noqa: F401
 
-from .ticker import (  # noqa: F401
-    TickHelper, Formatter, FixedFormatter, NullFormatter, FuncFormatter,
-    FormatStrFormatter, ScalarFormatter, LogFormatter, LogFormatterExponent,
-    LogFormatterMathtext, Locator, IndexLocator, FixedLocator, NullLocator,
-    LinearLocator, LogLocator, AutoLocator, MultipleLocator, MaxNLocator)
+from .ticker import (AutoLocator, FixedFormatter, FixedLocator,  # noqa: F401
+                     FormatStrFormatter, Formatter, FuncFormatter, IndexLocator,
+                     LinearLocator, Locator, LogFormatter, LogFormatterExponent,
+                     LogFormatterMathtext, LogLocator, MaxNLocator, MultipleLocator,
+                     NullFormatter, NullLocator, ScalarFormatter, TickHelper)
 
 _log = logging.getLogger(__name__)
 
@@ -515,6 +486,7 @@ def switch_backend(newbackend: str) -> None:
         # ipympl < 0.9.4 expects rcParams["backend"] to be the fully-qualified backend
         # name "module://ipympl.backend_nbagg" not short names "ipympl" or "widget".
         import importlib.metadata as im
+
         from matplotlib import _parse_to_version_info  # type: ignore[attr-defined]
         try:
             module_version = im.version("ipympl")

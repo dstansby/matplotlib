@@ -1,5 +1,7 @@
-import pytest
 import sys
+
+import pytest
+
 import matplotlib
 from matplotlib import _api
 
@@ -98,8 +100,7 @@ def pd():
     """
     pd = pytest.importorskip('pandas')
     try:
-        from pandas.plotting import (
-            deregister_matplotlib_converters as deregister)
+        from pandas.plotting import deregister_matplotlib_converters as deregister
         deregister()
     except ImportError:
         pass

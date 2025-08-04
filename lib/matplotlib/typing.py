@@ -10,13 +10,12 @@ downstream libraries.
     The ``typing`` module and type stub files are considered provisional and may change
     at any time without a deprecation period.
 """
-from collections.abc import Hashable, Sequence
+from collections.abc import Callable, Hashable, Sequence
 import pathlib
 from typing import Any, Literal, TypeAlias, TypeVar, Union
-from collections.abc import Callable
 
 from . import path
-from ._enums import JoinStyle, CapStyle
+from ._enums import CapStyle, JoinStyle
 from .artist import Artist
 from .backend_bases import RendererBase
 from .markers import MarkerStyle

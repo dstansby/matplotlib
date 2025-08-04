@@ -29,15 +29,14 @@ import numpy as np
 import matplotlib as mpl
 from matplotlib import _api, _docstring
 import matplotlib.artist as martist
+from matplotlib.font_manager import FontProperties
+from matplotlib.image import BboxImage
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+from matplotlib.patches import bbox_artist as mbbox_artist
 import matplotlib.path as mpath
 import matplotlib.text as mtext
 import matplotlib.transforms as mtransforms
-from matplotlib.font_manager import FontProperties
-from matplotlib.image import BboxImage
-from matplotlib.patches import (
-    FancyBboxPatch, FancyArrowPatch, bbox_artist as mbbox_artist)
 from matplotlib.transforms import Bbox, BboxBase, TransformedBbox
-
 
 DEBUG = False
 

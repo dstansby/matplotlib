@@ -8,9 +8,8 @@ decommenting, which allows _auto_backend_sentinel to be filled in at import
 time.
 """
 
-import sys
 from pathlib import Path
-
+import sys
 
 if len(sys.argv) != 4:
     raise SystemExit('usage: {sys.argv[0]} <input> <output> <backend>')

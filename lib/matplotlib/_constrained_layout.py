@@ -51,10 +51,10 @@ import logging
 
 import numpy as np
 
-from matplotlib import _api, artist as martist
-import matplotlib.transforms as mtransforms
+from matplotlib import _api
+from matplotlib import artist as martist
 import matplotlib._layoutgrid as mlayoutgrid
-
+import matplotlib.transforms as mtransforms
 
 _log = logging.getLogger(__name__)
 

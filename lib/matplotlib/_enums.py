@@ -11,6 +11,7 @@ they define.
 """
 
 from enum import Enum
+
 from matplotlib import _docstring
 
 
@@ -76,8 +77,8 @@ class JoinStyle(str, Enum):
     @staticmethod
     def demo():
         """Demonstrate how each JoinStyle looks for various join angles."""
-        import numpy as np
         import matplotlib.pyplot as plt
+        import numpy as np
 
         def plot_angle(ax, x, y, angle, style):
             phi = np.radians(angle)

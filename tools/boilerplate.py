@@ -19,16 +19,15 @@ import functools
 import inspect
 from inspect import Parameter
 from pathlib import Path
-import sys
 import subprocess
-
+import sys
 
 # This line imports the installed copy of matplotlib, and not the local copy.
 import numpy as np
+
 from matplotlib import _api, mlab
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
-
 
 # This is the magic line that must exist in pyplot, after which the boilerplate
 # content will be appended.

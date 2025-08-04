@@ -24,7 +24,6 @@ import sys
 from urllib.parse import urlparse
 from urllib.request import URLError, urlopen
 
-
 if len(sys.argv) != 2:
     print('USAGE: fetch_doc_results.py CircleCI-build-url')
     sys.exit(1)

@@ -1,27 +1,27 @@
+import base64
 import copy
+from io import BytesIO
 import itertools
+import platform
 import unittest.mock
 
-from io import BytesIO
-import numpy as np
 from PIL import Image
 import pytest
-import base64
-import platform
 
-from numpy.testing import assert_array_equal, assert_array_almost_equal
+import matplotlib.pyplot as plt
+import numpy as np
+from numpy.testing import assert_array_almost_equal, assert_array_equal
 
-from matplotlib import cbook, cm
 import matplotlib
 import matplotlib as mpl
-import matplotlib.colors as mcolors
+from matplotlib import cbook, cm
 import matplotlib.colorbar as mcolorbar
 import matplotlib.colorizer as mcolorizer
-import matplotlib.pyplot as plt
-import matplotlib.scale as mscale
+import matplotlib.colors as mcolors
+from matplotlib.colors import ListedColormap, is_color_like, to_rgba_array
 from matplotlib.rcsetup import cycler
-from matplotlib.testing.decorators import image_comparison, check_figures_equal
-from matplotlib.colors import is_color_like, to_rgba_array, ListedColormap
+import matplotlib.scale as mscale
+from matplotlib.testing.decorators import check_figures_equal, image_comparison
 
 
 @pytest.mark.parametrize('N, result', [

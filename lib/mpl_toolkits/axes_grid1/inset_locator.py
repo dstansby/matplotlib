@@ -6,8 +6,7 @@ from matplotlib import _api, _docstring
 from matplotlib.offsetbox import AnchoredOffsetbox
 from matplotlib.patches import Patch, Rectangle
 from matplotlib.path import Path
-from matplotlib.transforms import Bbox
-from matplotlib.transforms import IdentityTransform, TransformedBbox
+from matplotlib.transforms import Bbox, IdentityTransform, TransformedBbox
 
 from . import axes_size as Size
 from .parasite_axes import HostAxes

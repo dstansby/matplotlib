@@ -4,21 +4,22 @@ import io
 import os
 from pathlib import Path
 
-import numpy as np
 import pytest
 
+import numpy as np
+
 import matplotlib as mpl
-from matplotlib import (
-    pyplot as plt, rcParams, font_manager as fm
-)
+from matplotlib import font_manager as fm
+from matplotlib import pyplot as plt
+from matplotlib import rcParams
+from matplotlib.backends._backend_pdf_ps import font_as_file, get_glyphs_subset
+from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.cbook import _get_data_path
 from matplotlib.ft2font import FT2Font
-from matplotlib.backends._backend_pdf_ps import get_glyphs_subset, font_as_file
-from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.patches import Rectangle
 from matplotlib.testing import _gen_multi_font_text, _has_tex_package
-from matplotlib.testing.decorators import check_figures_equal, image_comparison
 from matplotlib.testing._markers import needs_usetex
+from matplotlib.testing.decorators import check_figures_equal, image_comparison
 
 
 @image_comparison(['pdf_use14corefonts.pdf'])

@@ -31,8 +31,8 @@ you can register it as the default handler for a given file type::
 
 from matplotlib import _api
 from matplotlib._pylab_helpers import Gcf
-from matplotlib.backend_bases import (
-     FigureCanvasBase, FigureManagerBase, GraphicsContextBase, RendererBase)
+from matplotlib.backend_bases import (FigureCanvasBase, FigureManagerBase,
+                                      GraphicsContextBase, RendererBase)
 from matplotlib.figure import Figure
 
 

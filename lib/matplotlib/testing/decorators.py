@@ -2,8 +2,8 @@ import contextlib
 import functools
 import inspect
 import os
-from platform import uname
 from pathlib import Path
+from platform import uname
 import shutil
 import string
 import sys
@@ -11,10 +11,13 @@ import warnings
 
 from packaging.version import parse as parse_version
 
+from matplotlib import _pylab_helpers, cbook, ft2font
+from matplotlib import pyplot as plt
+from matplotlib import ticker
 import matplotlib.style
-import matplotlib.units
 import matplotlib.testing
-from matplotlib import _pylab_helpers, cbook, ft2font, pyplot as plt, ticker
+import matplotlib.units
+
 from .compare import comparable_formats, compare_images, make_test_filename
 from .exceptions import ImageComparisonFailure
 

@@ -1,4 +1,5 @@
 import re
+
 from docutils.parsers.rst import Directive
 
 from matplotlib import _mathtext, _mathtext_data

@@ -2,7 +2,7 @@ from collections import namedtuple
 import contextlib
 from functools import cache, reduce, wraps
 import inspect
-from inspect import Signature, Parameter
+from inspect import Parameter, Signature
 import logging
 from numbers import Number, Real
 import operator
@@ -12,9 +12,10 @@ import warnings
 import numpy as np
 
 import matplotlib as mpl
+
 from . import _api, cbook
 from .path import Path
-from .transforms import (BboxBase, Bbox, IdentityTransform, Transform, TransformedBbox,
+from .transforms import (Bbox, BboxBase, IdentityTransform, Transform, TransformedBbox,
                          TransformedPatchPath, TransformedPath)
 
 _log = logging.getLogger(__name__)
@@ -532,6 +533,7 @@ class Artist:
         .Artist.set_picker, .Artist.get_picker, .Artist.pickable
         """
         from .backend_bases import PickEvent  # Circular import.
+
         # Pick self
         if self.pickable():
             picker = self.get_picker()

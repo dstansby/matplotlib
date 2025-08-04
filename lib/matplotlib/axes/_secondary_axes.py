@@ -4,9 +4,9 @@ import numbers
 import numpy as np
 
 from matplotlib import _api, _docstring, transforms
-import matplotlib.ticker as mticker
 from matplotlib.axes._base import _AxesBase, _TransformedBoundsLocator
 from matplotlib.axis import Axis
+import matplotlib.ticker as mticker
 from matplotlib.transforms import Transform
 
 

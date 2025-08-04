@@ -8,20 +8,23 @@ import platform
 import sys
 import urllib.request
 
+from PIL import Image
+import pytest
+
 import numpy as np
 from numpy.testing import assert_allclose, assert_array_equal
-from PIL import Image
 
 import matplotlib as mpl
-from matplotlib import (
-    colors, image as mimage, patches, pyplot as plt, style, rcParams)
-from matplotlib.image import (AxesImage, BboxImage, FigureImage,
-                              NonUniformImage, PcolorImage)
+from matplotlib import colors
+from matplotlib import image as mimage
+from matplotlib import patches
+from matplotlib import pyplot as plt
+from matplotlib import rcParams, style
+from matplotlib.image import (AxesImage, BboxImage, FigureImage, NonUniformImage,
+                              PcolorImage)
 from matplotlib.testing.decorators import check_figures_equal, image_comparison
-from matplotlib.transforms import Bbox, Affine2D, Transform, TransformedBbox
 import matplotlib.ticker as mticker
-
-import pytest
+from matplotlib.transforms import Affine2D, Bbox, Transform, TransformedBbox
 
 
 @image_comparison(['interp_alpha.png'], remove_text=True)

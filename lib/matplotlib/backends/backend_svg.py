@@ -10,20 +10,20 @@ import os
 import re
 import uuid
 
-import numpy as np
 from PIL import Image
 
+import numpy as np
+
 import matplotlib as mpl
-from matplotlib import cbook, font_manager as fm
-from matplotlib.backend_bases import (
-     _Backend, FigureCanvasBase, FigureManagerBase, RendererBase)
+from matplotlib import _path, cbook
+from matplotlib import font_manager as fm
+from matplotlib.backend_bases import (FigureCanvasBase, FigureManagerBase, RendererBase,
+                                      _Backend)
 from matplotlib.backends.backend_mixed import MixedModeRenderer
 from matplotlib.colors import rgb2hex
 from matplotlib.dates import UTC
 from matplotlib.path import Path
-from matplotlib import _path
 from matplotlib.transforms import Affine2D, Affine2DBase
-
 
 _log = logging.getLogger(__name__)
 

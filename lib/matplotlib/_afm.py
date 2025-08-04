@@ -33,7 +33,6 @@ import re
 
 from ._mathtext_data import uni2type1
 
-
 _log = logging.getLogger(__name__)
 
 

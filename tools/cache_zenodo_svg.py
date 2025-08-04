@@ -1,7 +1,7 @@
-import urllib.request
 from io import BytesIO
 import os
 from pathlib import Path
+import urllib.request
 
 
 def download_or_cache(url, version):

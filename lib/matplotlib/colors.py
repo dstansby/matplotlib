@@ -39,9 +39,9 @@ Colors that Matplotlib recognizes are listed at
 .. _xkcd color survey: https://xkcd.com/color/rgb/
 """
 
-import base64
-from collections.abc import Sequence, Mapping
 from abc import ABC, abstractmethod
+import base64
+from collections.abc import Mapping, Sequence
 import functools
 import importlib
 import inspect
@@ -53,10 +53,12 @@ import re
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
-import matplotlib as mpl
 import numpy as np
-from matplotlib import _api, _cm, cbook, scale, _image
-from ._color_data import BASE_COLORS, TABLEAU_COLORS, CSS4_COLORS, XKCD_COLORS
+
+import matplotlib as mpl
+from matplotlib import _api, _cm, _image, cbook, scale
+
+from ._color_data import BASE_COLORS, CSS4_COLORS, TABLEAU_COLORS, XKCD_COLORS
 
 
 class _ColorMapping(dict):

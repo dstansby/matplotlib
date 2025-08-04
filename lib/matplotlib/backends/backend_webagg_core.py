@@ -16,13 +16,14 @@ import logging
 import os
 from pathlib import Path
 
-import numpy as np
 from PIL import Image
 
+import numpy as np
+
 from matplotlib import _api, backend_bases, backend_tools
+from matplotlib.backend_bases import (KeyEvent, LocationEvent, MouseButton, MouseEvent,
+                                      ResizeEvent, _Backend)
 from matplotlib.backends import backend_agg
-from matplotlib.backend_bases import (
-    _Backend, MouseButton, KeyEvent, LocationEvent, MouseEvent, ResizeEvent)
 
 _log = logging.getLogger(__name__)
 

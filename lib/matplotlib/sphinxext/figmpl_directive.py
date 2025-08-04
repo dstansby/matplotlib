@@ -14,7 +14,7 @@ See the *FigureMpl* documentation below.
 """
 import os
 from os.path import relpath
-from pathlib import PurePath, Path
+from pathlib import Path, PurePath
 import shutil
 
 from docutils import nodes

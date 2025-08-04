@@ -78,14 +78,13 @@ import numpy as np
 import matplotlib as mpl
 from matplotlib import _api, cbook
 import matplotlib.artist as martist
-import matplotlib.colors as mcolors
-import matplotlib.text as mtext
 from matplotlib.collections import LineCollection
+import matplotlib.colors as mcolors
 from matplotlib.lines import Line2D
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
-from matplotlib.transforms import (
-    Affine2D, Bbox, IdentityTransform, ScaledTranslation)
+import matplotlib.text as mtext
+from matplotlib.transforms import Affine2D, Bbox, IdentityTransform, ScaledTranslation
 
 from .axisline_style import AxislineStyle
 

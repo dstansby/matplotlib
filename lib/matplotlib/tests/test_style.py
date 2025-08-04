@@ -1,14 +1,15 @@
 from contextlib import contextmanager
 from pathlib import Path
-from tempfile import TemporaryDirectory
 import sys
+from tempfile import TemporaryDirectory
 
-import numpy as np
 import pytest
 
-import matplotlib as mpl
-from matplotlib import pyplot as plt, style
+import numpy as np
 
+import matplotlib as mpl
+from matplotlib import pyplot as plt
+from matplotlib import style
 
 PARAM = 'image.cmap'
 VALUE = 'pink'

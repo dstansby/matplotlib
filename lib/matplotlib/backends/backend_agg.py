@@ -22,21 +22,23 @@ Still TODO:
 """
 
 from contextlib import nullcontext
-from math import radians, cos, sin
+from math import cos, radians, sin
+
+from PIL import features
 
 import numpy as np
-from PIL import features
 
 import matplotlib as mpl
 from matplotlib import _api, cbook
-from matplotlib.backend_bases import (
-    _Backend, FigureCanvasBase, FigureManagerBase, RendererBase)
-from matplotlib.font_manager import fontManager as _fontManager, get_font
+from matplotlib.backend_bases import (FigureCanvasBase, FigureManagerBase, RendererBase,
+                                      _Backend)
+from matplotlib.backends._backend_agg import RendererAgg as _RendererAgg
+from matplotlib.font_manager import fontManager as _fontManager
+from matplotlib.font_manager import get_font
 from matplotlib.ft2font import LoadFlags
 from matplotlib.mathtext import MathTextParser
 from matplotlib.path import Path
 from matplotlib.transforms import Bbox, BboxBase
-from matplotlib.backends._backend_agg import RendererAgg as _RendererAgg
 
 
 def get_hinting_flag():

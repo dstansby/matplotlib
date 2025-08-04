@@ -13,7 +13,6 @@ import sys
 
 import matplotlib
 
-
 print(f"Version {matplotlib.__version__} installed")
 if matplotlib.__version__[0] == "0":
     sys.exit("Version incorrectly starts with 0")

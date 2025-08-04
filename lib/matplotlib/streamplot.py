@@ -7,10 +7,9 @@ import numpy as np
 
 import matplotlib as mpl
 from matplotlib import _api, cm, patches
-import matplotlib.colors as mcolors
 import matplotlib.collections as mcollections
+import matplotlib.colors as mcolors
 import matplotlib.lines as mlines
-
 
 __all__ = ['streamplot']
 

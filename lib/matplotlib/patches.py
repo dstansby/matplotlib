@@ -2,26 +2,28 @@ r"""
 Patches are `.Artist`\s with a face color and an edge color.
 """
 
+from collections import namedtuple
 import functools
 import inspect
 import math
 from numbers import Number, Real
 import textwrap
 from types import SimpleNamespace
-from collections import namedtuple
-from matplotlib.transforms import Affine2D
 
 import numpy as np
 
 import matplotlib as mpl
-from . import (_api, artist, cbook, colors, _docstring, hatch as mhatch,
-               lines as mlines, transforms)
-from .bezier import (
-    NonIntersectingPathException, get_cos_sin, get_intersection,
-    get_parallels, inside_circle, make_wedged_bezier2,
-    split_bezier_intersecting_with_closedpath, split_path_inout)
+from matplotlib.transforms import Affine2D
+
+from . import _api, _docstring, artist, cbook, colors
+from . import hatch as mhatch
+from . import lines as mlines
+from . import transforms
+from ._enums import CapStyle, JoinStyle
+from .bezier import (NonIntersectingPathException, get_cos_sin, get_intersection,
+                     get_parallels, inside_circle, make_wedged_bezier2,
+                     split_bezier_intersecting_with_closedpath, split_path_inout)
 from .path import Path
-from ._enums import JoinStyle, CapStyle
 
 
 @_docstring.interpd

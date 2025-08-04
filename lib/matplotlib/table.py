@@ -28,12 +28,11 @@ import numpy as np
 
 from . import _api, _docstring
 from .artist import Artist, allow_rasterization
+from .cbook import _is_pandas_dataframe
 from .patches import Rectangle
+from .path import Path
 from .text import Text
 from .transforms import Bbox
-from .path import Path
-
-from .cbook import _is_pandas_dataframe
 
 
 class Cell(Rectangle):

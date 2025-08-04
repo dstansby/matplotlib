@@ -1,7 +1,7 @@
 from typing import Any, Literal, overload
 
-from numpy.typing import ArrayLike
 import numpy as np
+from numpy.typing import ArrayLike
 
 from matplotlib._api import _Unset
 from matplotlib.axes import Axes

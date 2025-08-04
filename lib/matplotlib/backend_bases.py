@@ -46,9 +46,11 @@ from weakref import WeakKeyDictionary
 import numpy as np
 
 import matplotlib as mpl
-from matplotlib import (
-    _api, backend_tools as tools, cbook, colors, _docstring, text,
-    _tight_bbox, transforms, widgets, is_interactive, rcParams)
+from matplotlib import (cbook, colors, is_interactive, rcParams, text, transforms,
+                        widgets)
+from matplotlib import _api, _docstring, _tight_bbox
+from matplotlib import backend_tools as tools
+from matplotlib._enums import CapStyle, JoinStyle
 from matplotlib._pylab_helpers import Gcf
 from matplotlib.backend_managers import ToolManager
 from matplotlib.cbook import _setattr_cm
@@ -56,8 +58,6 @@ from matplotlib.layout_engine import ConstrainedLayoutEngine
 from matplotlib.path import Path
 from matplotlib.texmanager import TexManager
 from matplotlib.transforms import Affine2D
-from matplotlib._enums import JoinStyle, CapStyle
-
 
 _log = logging.getLogger(__name__)
 _default_filetypes = {

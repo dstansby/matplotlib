@@ -13,31 +13,33 @@ import logging
 import math
 import os
 import re
-import types
-import unicodedata
 import string
 import textwrap
+import types
 import typing as T
 from typing import NamedTuple
+import unicodedata
+
+from pyparsing import (Empty, Forward, Group, Literal, NotAny, OneOrMore, Optional,
+                       ParseBaseException, ParseException, ParseExpression,
+                       ParseFatalException, ParserElement, ParseResults, QuotedString,
+                       Regex, StringEnd, ZeroOrMore, nested_expr, one_of,
+                       pyparsing_common)
 
 import numpy as np
 from numpy.typing import NDArray
-from pyparsing import (
-    Empty, Forward, Literal, Group, NotAny, OneOrMore, Optional,
-    ParseBaseException, ParseException, ParseExpression, ParseFatalException,
-    ParserElement, ParseResults, QuotedString, Regex, StringEnd, ZeroOrMore,
-    pyparsing_common, nested_expr, one_of)
 
 import matplotlib as mpl
+
 from . import cbook
-from ._mathtext_data import (
-    latex_to_bakoma, stix_glyph_fixes, stix_virtual_fonts, tex2uni)
+from ._mathtext_data import (latex_to_bakoma, stix_glyph_fixes, stix_virtual_fonts,
+                             tex2uni)
 from .font_manager import FontProperties, findfont, get_font
 from .ft2font import FT2Font, Kerning, LoadFlags
 
-
 if T.TYPE_CHECKING:
     from collections.abc import Iterable
+
     from .ft2font import Glyph
 
 ParserElement.enable_packrat()

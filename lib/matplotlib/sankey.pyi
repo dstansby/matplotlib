@@ -1,10 +1,9 @@
-from matplotlib.axes import Axes
-
 from collections.abc import Callable, Iterable
-from typing import Any
-from typing import Self
+from typing import Any, Self
 
 import numpy as np
+
+from matplotlib.axes import Axes
 
 __license__: str
 __credits__: list[str]

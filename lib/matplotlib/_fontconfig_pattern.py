@@ -12,9 +12,8 @@ A module for parsing and generating `fontconfig patterns`_.
 from functools import cache, lru_cache, partial
 import re
 
-from pyparsing import (
-    Group, Optional, ParseException, Regex, StringEnd, Suppress, ZeroOrMore, one_of)
-
+from pyparsing import (Group, Optional, ParseException, Regex, StringEnd, Suppress,
+                       ZeroOrMore, one_of)
 
 _family_punc = r'\\\-:,'
 _family_unescape = partial(re.compile(r'\\(?=[%s])' % _family_punc).sub, '')

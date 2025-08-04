@@ -46,10 +46,10 @@ from matplotlib import _api
 import matplotlib.axes as maxes
 from matplotlib.path import Path
 from matplotlib.transforms import Bbox
-
 from mpl_toolkits.axes_grid1 import mpl_axes
-from .axisline_style import AxislineStyle  # noqa
+
 from .axis_artist import AxisArtist, GridlinesCollection
+from .axisline_style import AxislineStyle  # noqa
 
 
 class _AxisArtistHelperBase:

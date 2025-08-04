@@ -33,9 +33,10 @@ full path::
 """
 
 from pathlib import Path
-from sphinx.util.docutils import SphinxDirective
+
 from sphinx.domains import Domain
 from sphinx.util import logging
+from sphinx.util.docutils import SphinxDirective
 
 logger = logging.getLogger(__name__)
 

@@ -3,29 +3,25 @@
 """
 
 import copy
-
-from numbers import Integral, Number, Real
 import logging
+from numbers import Integral, Number, Real
 
 import numpy as np
 
 import matplotlib as mpl
-from . import _api, cbook, colors as mcolors, _docstring
-from .artist import Artist, allow_rasterization
-from .cbook import (
-    _to_unmasked_float_array, ls_mapper, ls_mapper_r, STEP_LOOKUP_MAP)
-from .markers import MarkerStyle
-from .path import Path
-from .transforms import Bbox, BboxTransformTo, TransformedPath
-from ._enums import JoinStyle, CapStyle
 
 # Imported here for backward compatibility, even though they don't
 # really belong.
-from . import _path
-from .markers import (  # noqa
-    CARETLEFT, CARETRIGHT, CARETUP, CARETDOWN,
-    CARETLEFTBASE, CARETRIGHTBASE, CARETUPBASE, CARETDOWNBASE,
-    TICKLEFT, TICKRIGHT, TICKUP, TICKDOWN)
+from . import _api, _docstring, _path, cbook
+from . import colors as mcolors
+from ._enums import CapStyle, JoinStyle
+from .artist import Artist, allow_rasterization
+from .cbook import STEP_LOOKUP_MAP, _to_unmasked_float_array, ls_mapper, ls_mapper_r
+from .markers import (CARETDOWN, CARETDOWNBASE, CARETLEFT, CARETLEFTBASE,  # noqa
+                      CARETRIGHT, CARETRIGHTBASE, CARETUP, CARETUPBASE, TICKDOWN,
+                      TICKLEFT, TICKRIGHT, TICKUP, MarkerStyle)
+from .path import Path
+from .transforms import Bbox, BboxTransformTo, TransformedPath
 
 _log = logging.getLogger(__name__)
 

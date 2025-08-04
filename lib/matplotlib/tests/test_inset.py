@@ -2,10 +2,11 @@ import platform
 
 import pytest
 
-import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
+
+import matplotlib.colors as mcolors
+from matplotlib.testing.decorators import check_figures_equal, image_comparison
 import matplotlib.transforms as mtransforms
-from matplotlib.testing.decorators import image_comparison, check_figures_equal
 
 
 def test_indicate_inset_no_args():

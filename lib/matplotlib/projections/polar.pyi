@@ -1,14 +1,15 @@
-import matplotlib.axis as maxis
-import matplotlib.ticker as mticker
-import matplotlib.transforms as mtransforms
-from matplotlib.axes import Axes
-from matplotlib.lines import Line2D
-from matplotlib.text import Text
+from collections.abc import Sequence
+from typing import Any, ClassVar, Literal, overload
 
 import numpy as np
 from numpy.typing import ArrayLike
-from collections.abc import Sequence
-from typing import Any, ClassVar, Literal, overload
+
+from matplotlib.axes import Axes
+import matplotlib.axis as maxis
+from matplotlib.lines import Line2D
+from matplotlib.text import Text
+import matplotlib.ticker as mticker
+import matplotlib.transforms as mtransforms
 
 class PolarTransform(mtransforms.Transform):
     input_dims: int

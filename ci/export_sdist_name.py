@@ -11,7 +11,6 @@ import os
 from pathlib import Path
 import sys
 
-
 paths = [p.name for p in Path("dist").glob("*.tar.gz")]
 if len(paths) != 1:
     sys.exit(f"Only a single sdist is supported, but found: {paths}")

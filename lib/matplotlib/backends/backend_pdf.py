@@ -5,8 +5,7 @@ Author: Jouni K Seppänen <jks@iki.fi> and others.
 """
 
 import codecs
-from datetime import timezone
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from functools import total_ordering
 from io import BytesIO
@@ -22,24 +21,25 @@ import types
 import warnings
 import zlib
 
-import numpy as np
 from PIL import Image
 
+import numpy as np
+
 import matplotlib as mpl
-from matplotlib import _api, _text_helpers, _type1font, cbook, dviread
-from matplotlib._pylab_helpers import Gcf
-from matplotlib.backend_bases import (
-    _Backend, FigureCanvasBase, FigureManagerBase, GraphicsContextBase,
-    RendererBase)
-from matplotlib.backends.backend_mixed import MixedModeRenderer
-from matplotlib.figure import Figure
-from matplotlib.font_manager import get_font, fontManager as _fontManager
+from matplotlib import _api, _path, _text_helpers, _type1font, cbook, dviread
 from matplotlib._afm import AFM
-from matplotlib.ft2font import FT2Font, FaceFlags, Kerning, LoadFlags, StyleFlags
-from matplotlib.transforms import Affine2D, BboxBase
-from matplotlib.path import Path
+from matplotlib._pylab_helpers import Gcf
+from matplotlib.backend_bases import (FigureCanvasBase, FigureManagerBase,
+                                      GraphicsContextBase, RendererBase, _Backend)
+from matplotlib.backends.backend_mixed import MixedModeRenderer
 from matplotlib.dates import UTC
-from matplotlib import _path
+from matplotlib.figure import Figure
+from matplotlib.font_manager import fontManager as _fontManager
+from matplotlib.font_manager import get_font
+from matplotlib.ft2font import FaceFlags, FT2Font, Kerning, LoadFlags, StyleFlags
+from matplotlib.path import Path
+from matplotlib.transforms import Affine2D, BboxBase
+
 from . import _backend_pdf_ps
 
 _log = logging.getLogger(__name__)

@@ -6,7 +6,7 @@ import math
 import numpy as np
 
 import matplotlib as mpl
-from matplotlib.patches import _Style, FancyArrowPatch
+from matplotlib.patches import FancyArrowPatch, _Style
 from matplotlib.path import Path
 from matplotlib.transforms import IdentityTransform
 

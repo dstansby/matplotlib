@@ -1,5 +1,3 @@
-import uuid
-import weakref
 from contextlib import contextmanager
 import logging
 import math
@@ -11,20 +9,23 @@ import tkinter.filedialog
 import tkinter.font
 import tkinter.messagebox
 from tkinter.simpledialog import SimpleDialog
+import uuid
+import weakref
 
-import numpy as np
 from PIL import Image, ImageTk
 
+import numpy as np
+
 import matplotlib as mpl
-from matplotlib import _api, backend_tools, cbook, _c_internal_utils
-from matplotlib.backend_bases import (
-    _Backend, FigureCanvasBase, FigureManagerBase, NavigationToolbar2,
-    TimerBase, ToolContainerBase, cursors, _Mode, MouseButton,
-    CloseEvent, KeyEvent, LocationEvent, MouseEvent, ResizeEvent)
+from matplotlib import _api, _c_internal_utils, backend_tools, cbook
 from matplotlib._pylab_helpers import Gcf
+from matplotlib.backend_bases import (CloseEvent, FigureCanvasBase, FigureManagerBase,
+                                      KeyEvent, LocationEvent, MouseButton, MouseEvent,
+                                      NavigationToolbar2, ResizeEvent, TimerBase,
+                                      ToolContainerBase, _Backend, _Mode, cursors)
+
 from . import _tkagg
 from ._tkagg import TK_PHOTO_COMPOSITE_OVERLAY, TK_PHOTO_COMPOSITE_SET
-
 
 _log = logging.getLogger(__name__)
 cursord = {

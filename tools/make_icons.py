@@ -7,16 +7,16 @@ Generates SVG, PDF in one size (since they are vectors), and PNG in 24x24 and
 48x48.
 """
 
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from io import BytesIO
 from pathlib import Path
 import tarfile
 import urllib.request
 
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
+import matplotlib as mpl
 
 plt.rcdefaults()
 plt.rcParams['svg.fonttype'] = 'path'

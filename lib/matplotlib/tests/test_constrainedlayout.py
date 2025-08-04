@@ -1,15 +1,15 @@
 import gc
 import platform
 
-import numpy as np
 import pytest
 
-import matplotlib as mpl
-from matplotlib.testing.decorators import image_comparison
 import matplotlib.pyplot as plt
-import matplotlib.transforms as mtransforms
-from matplotlib import gridspec, ticker
+import numpy as np
 
+import matplotlib as mpl
+from matplotlib import gridspec, ticker
+from matplotlib.testing.decorators import image_comparison
+import matplotlib.transforms as mtransforms
 
 pytestmark = [
     pytest.mark.usefixtures('text_placeholders')

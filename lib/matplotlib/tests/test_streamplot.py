@@ -1,7 +1,9 @@
+import pytest
+
+import matplotlib.pyplot as plt
 import numpy as np
 from numpy.testing import assert_array_almost_equal
-import pytest
-import matplotlib.pyplot as plt
+
 from matplotlib.testing.decorators import image_comparison
 import matplotlib.transforms as mtransforms
 

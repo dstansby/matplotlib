@@ -36,6 +36,7 @@ import typing as T
 import numpy as np
 
 from matplotlib.cbook import _format_approx
+
 from . import _api
 
 _log = logging.getLogger(__name__)

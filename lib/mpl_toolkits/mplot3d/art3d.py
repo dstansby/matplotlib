@@ -7,18 +7,21 @@ Module containing 3D artist code and functions to convert 2D
 artists into 3D versions which can be added to an Axes3D.
 """
 
+from contextlib import contextmanager
 import math
 
 import numpy as np
 
-from contextlib import contextmanager
-
-from matplotlib import (
-    _api, artist, cbook, colors as mcolors, lines, text as mtext,
-    path as mpath, rcParams)
-from matplotlib.collections import (
-    Collection, LineCollection, PolyCollection, PatchCollection, PathCollection)
+from matplotlib import _api, artist, cbook
+from matplotlib import colors as mcolors
+from matplotlib import lines
+from matplotlib import path as mpath
+from matplotlib import rcParams
+from matplotlib import text as mtext
+from matplotlib.collections import (Collection, LineCollection, PatchCollection,
+                                    PathCollection, PolyCollection)
 from matplotlib.patches import Patch
+
 from . import proj3d
 
 

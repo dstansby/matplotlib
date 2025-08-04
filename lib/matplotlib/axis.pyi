@@ -1,22 +1,20 @@
 from collections.abc import Callable, Iterable, Sequence
 import datetime
-from typing import Any, Literal, overload
-from typing import Self
+from typing import Any, Literal, Self, overload
 
 import numpy as np
 from numpy.typing import ArrayLike
 
-import matplotlib.artist as martist
 from matplotlib import cbook
+import matplotlib.artist as martist
 from matplotlib.axes import Axes
 from matplotlib.backend_bases import RendererBase
 from matplotlib.lines import Line2D
 from matplotlib.text import Text
-from matplotlib.ticker import Locator, Formatter
-from matplotlib.transforms import Transform, Bbox
+from matplotlib.ticker import Formatter, Locator
+from matplotlib.transforms import Bbox, Transform
 from matplotlib.typing import ColorType
 from matplotlib.units import ConversionInterface
-
 
 GRIDLINE_INTERPOLATION_STEPS: int
 

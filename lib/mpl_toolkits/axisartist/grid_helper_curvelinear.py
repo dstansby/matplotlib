@@ -9,9 +9,10 @@ import numpy as np
 import matplotlib as mpl
 from matplotlib.path import Path
 from matplotlib.transforms import Affine2D, Bbox, IdentityTransform
-from .axislines import (
-    _FixedAxisArtistHelperBase, _FloatingAxisArtistHelperBase, GridHelperBase)
+
 from .axis_artist import AxisArtist
+from .axislines import (GridHelperBase, _FixedAxisArtistHelperBase,
+                        _FloatingAxisArtistHelperBase)
 from .grid_finder import GridFinder
 
 

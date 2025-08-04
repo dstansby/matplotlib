@@ -10,16 +10,14 @@ To generate a report for Matplotlib 3.0.0, run:
 # Imports
 # -----------------------------------------------------------------------------
 
-import sys
-
 from argparse import ArgumentParser
 from datetime import datetime, timedelta
 from subprocess import check_output
+import sys
 
-from gh_api import (
-    get_paged_request, make_auth_header, get_pull_request, is_pull_request,
-    get_milestone_id, get_issues_list, get_authors,
-)
+from gh_api import (get_authors, get_issues_list, get_milestone_id, get_paged_request,
+                    get_pull_request, is_pull_request, make_auth_header)
+
 # -----------------------------------------------------------------------------
 # Globals
 # -----------------------------------------------------------------------------

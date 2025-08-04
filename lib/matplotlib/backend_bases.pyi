@@ -1,11 +1,11 @@
+from collections.abc import Callable, Iterable, Sequence
 from enum import Enum, IntEnum
 import os
-from matplotlib import (
-    cbook,
-    transforms,
-    widgets,
-    _api,
-)
+from typing import IO, Any, Literal, NamedTuple, TypeVar, overload
+
+from numpy.typing import ArrayLike
+
+from matplotlib import _api, cbook, transforms, widgets
 from matplotlib.artist import Artist
 from matplotlib.axes import Axes
 from matplotlib.backend_managers import ToolManager
@@ -18,21 +18,9 @@ from matplotlib.texmanager import TexManager
 from matplotlib.text import Text
 from matplotlib.transforms import Bbox, BboxBase, Transform, TransformedPath
 
-from collections.abc import Callable, Iterable, Sequence
-from typing import Any, IO, Literal, NamedTuple, TypeVar, overload
-from numpy.typing import ArrayLike
-from .typing import (
-    CapStyleType,
-    CloseEventType,
-    ColorType,
-    DrawEventType,
-    JoinStyleType,
-    KeyEventType,
-    LineStyleType,
-    MouseEventType,
-    PickEventType,
-    ResizeEventType,
-)
+from .typing import (CapStyleType, CloseEventType, ColorType, DrawEventType,
+                     JoinStyleType, KeyEventType, LineStyleType, MouseEventType,
+                     PickEventType, ResizeEventType)
 
 def register_backend(
     format: str, backend: str | type[FigureCanvasBase], description: str | None = ...

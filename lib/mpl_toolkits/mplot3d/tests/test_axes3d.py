@@ -5,22 +5,21 @@ import sys
 
 import pytest
 
-from mpl_toolkits.mplot3d import Axes3D, axes3d, proj3d, art3d
-from mpl_toolkits.mplot3d.axes3d import _Quaternion as Quaternion
-import matplotlib as mpl
-from matplotlib.backend_bases import (MouseButton, MouseEvent,
-                                      NavigationToolbar2)
-from matplotlib import cm
-from matplotlib import colors as mcolors, patches as mpatch
-from matplotlib.testing.decorators import image_comparison, check_figures_equal
-from matplotlib.collections import LineCollection, PolyCollection
-from matplotlib.patches import Circle, PathPatch
-from matplotlib.path import Path
-from matplotlib.text import Text
-
 import matplotlib.pyplot as plt
 import numpy as np
 
+import matplotlib as mpl
+from matplotlib import cm
+from matplotlib import colors as mcolors
+from matplotlib import patches as mpatch
+from matplotlib.backend_bases import MouseButton, MouseEvent, NavigationToolbar2
+from matplotlib.collections import LineCollection, PolyCollection
+from matplotlib.patches import Circle, PathPatch
+from matplotlib.path import Path
+from matplotlib.testing.decorators import check_figures_equal, image_comparison
+from matplotlib.text import Text
+from mpl_toolkits.mplot3d import Axes3D, art3d, axes3d, proj3d
+from mpl_toolkits.mplot3d.axes3d import _Quaternion as Quaternion
 
 mpl3d_image_comparison = functools.partial(
     image_comparison, remove_text=True, style='default')
@@ -1764,7 +1763,7 @@ def test_stem3d():
 
 @image_comparison(["equal_box_aspect.png"], style="mpl20")
 def test_equal_box_aspect():
-    from itertools import product, combinations
+    from itertools import combinations, product
 
     fig = plt.figure()
     ax = fig.add_subplot(projection="3d")

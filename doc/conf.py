@@ -170,8 +170,8 @@ def _check_dependencies():
 
     # debug sphinx-pydata-theme and mpl-theme-version
     if 'mpl_sphinx_theme' not in missing:
-        import pydata_sphinx_theme
         import mpl_sphinx_theme
+        import pydata_sphinx_theme
         print(f"pydata sphinx theme: {pydata_sphinx_theme.__version__}")
         print(f"mpl sphinx theme: {mpl_sphinx_theme.__version__}")
 
@@ -198,9 +198,8 @@ if parse_version(sphinx_gallery.__version__) >= parse_version('0.16.0'):
 else:
     # gallery_order.py from the sphinxext folder provides the classes that
     # allow custom ordering of sections and subsections of the gallery
-    from sphinxext.gallery_order import (
-        sectionorder as gallery_order_sectionorder,
-        subsectionorder as gallery_order_subsectionorder)
+    from sphinxext.gallery_order import sectionorder as gallery_order_sectionorder
+    from sphinxext.gallery_order import subsectionorder as gallery_order_subsectionorder
     from sphinxext.util import clear_basic_units, matplotlib_reduced_latex_scraper
 
 if parse_version(sphinx_gallery.__version__) >= parse_version('0.17.0'):
@@ -482,7 +481,7 @@ def add_html_cache_busting(app, pagename, templatename, context, doctree):
     .. note:: Sphinx 7.1 provides asset checksums; so this hook only runs on
               Sphinx 7.0 and earlier.
     """
-    from sphinx.builders.html import Stylesheet, JavaScript
+    from sphinx.builders.html import JavaScript, Stylesheet
 
     css_tag = context['css_tag']
     js_tag = context['js_tag']
@@ -862,11 +861,13 @@ else:
 
 def generate_ScalarMappable_docs():
 
-    import matplotlib.colorizer
-    from numpydoc.docscrape_sphinx import get_doc_object
     from pathlib import Path
     import textwrap
+
+    from numpydoc.docscrape_sphinx import get_doc_object
     from sphinx.util.inspect import stringify_signature
+
+    import matplotlib.colorizer
     target_file = Path(__file__).parent / 'api' / 'scalarmappable.gen_rst'
     with open(target_file, 'w') as fout:
         fout.write("""

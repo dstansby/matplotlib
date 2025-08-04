@@ -1,25 +1,29 @@
-from io import BytesIO, StringIO
 import gc
+from io import BytesIO, StringIO
 import multiprocessing
 import os
 from pathlib import Path
-from PIL import Image
 import shutil
 import sys
 import warnings
 
-import numpy as np
+from PIL import Image
 import pytest
 
-import matplotlib as mpl
-from matplotlib.font_manager import (
-    findfont, findSystemFonts, FontEntry, FontProperties, fontManager,
-    json_dump, json_load, get_font, is_opentype_cff_font,
-    MSUserFontDirectories, ttfFontProperty,
-    _get_fontconfig_fonts, _normalize_weight)
-from matplotlib import cbook, ft2font, pyplot as plt, rc_context, figure as mfigure
-from matplotlib.testing import subprocess_run_helper, subprocess_run_for_testing
+import numpy as np
 
+import matplotlib as mpl
+from matplotlib import cbook
+from matplotlib import figure as mfigure
+from matplotlib import ft2font
+from matplotlib import pyplot as plt
+from matplotlib import rc_context
+from matplotlib.font_manager import (FontEntry, FontProperties, MSUserFontDirectories,
+                                     _get_fontconfig_fonts, _normalize_weight, findfont,
+                                     findSystemFonts, fontManager, get_font,
+                                     is_opentype_cff_font, json_dump, json_load,
+                                     ttfFontProperty)
+from matplotlib.testing import subprocess_run_for_testing, subprocess_run_helper
 
 has_fclist = shutil.which('fc-list') is not None
 
@@ -252,8 +256,9 @@ def test_missing_family(caplog):
 
 def _test_threading():
     import threading
-    from matplotlib.ft2font import LoadFlags
+
     import matplotlib.font_manager as fm
+    from matplotlib.ft2font import LoadFlags
 
     def loud_excepthook(args):
         raise RuntimeError("error in thread!")

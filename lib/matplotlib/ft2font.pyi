@@ -1,6 +1,7 @@
 from enum import Enum, Flag
 import sys
-from typing import BinaryIO, Literal, TypedDict, final, overload, cast
+from typing import BinaryIO, Literal, TypedDict, cast, final, overload
+
 from typing_extensions import Buffer  # < Py 3.12
 
 import numpy as np

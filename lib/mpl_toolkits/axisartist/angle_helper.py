@@ -1,5 +1,6 @@
-import numpy as np
 import math
+
+import numpy as np
 
 from matplotlib.transforms import Bbox
 from mpl_toolkits.axisartist.grid_finder import ExtremeFinderSimple

@@ -8,18 +8,19 @@ import hashlib
 import logging
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
 from tempfile import TemporaryDirectory, TemporaryFile
 import weakref
-import re
 
-import numpy as np
 from PIL import Image
 
+import numpy as np
+
 import matplotlib as mpl
-from matplotlib import cbook, _image
+from matplotlib import _image, cbook
 from matplotlib.testing.exceptions import ImageComparisonFailure
 
 _log = logging.getLogger(__name__)

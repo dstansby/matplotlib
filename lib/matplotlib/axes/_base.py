@@ -12,10 +12,10 @@ import types
 import numpy as np
 
 import matplotlib as mpl
-from matplotlib import _api, cbook, _docstring, offsetbox
+from matplotlib import _api, _docstring, cbook, offsetbox
 import matplotlib.artist as martist
 import matplotlib.axis as maxis
-from matplotlib.cbook import _OrderedSet, _check_1d, index_of
+from matplotlib.cbook import _check_1d, _OrderedSet, index_of
 import matplotlib.collections as mcoll
 import matplotlib.colors as mcolors
 import matplotlib.font_manager as font_manager

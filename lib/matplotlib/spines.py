@@ -6,9 +6,9 @@ import numpy as np
 import matplotlib as mpl
 from matplotlib import _api, _docstring
 from matplotlib.artist import allow_rasterization
-import matplotlib.transforms as mtransforms
 import matplotlib.patches as mpatches
 import matplotlib.path as mpath
+import matplotlib.transforms as mtransforms
 
 
 class Spine(mpatches.Patch):

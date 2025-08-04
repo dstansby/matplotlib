@@ -4,9 +4,8 @@ import os
 
 import matplotlib as mpl
 from matplotlib import _api, backend_tools, cbook
-from matplotlib.backend_bases import (
-    ToolContainerBase, MouseButton,
-    KeyEvent, LocationEvent, MouseEvent, ResizeEvent, CloseEvent)
+from matplotlib.backend_bases import (CloseEvent, KeyEvent, LocationEvent, MouseButton,
+                                      MouseEvent, ResizeEvent, ToolContainerBase)
 
 try:
     import gi
@@ -22,12 +21,12 @@ except ValueError as e:
     # auto-backend selection logic correctly skips.
     raise ImportError(e) from e
 
-from gi.repository import Gio, GLib, Gtk, Gdk, GdkPixbuf
+from gi.repository import Gdk, GdkPixbuf, Gio, GLib, Gtk
+
 from . import _backend_gtk
-from ._backend_gtk import (  # noqa: F401 # pylint: disable=W0611
-    _BackendGTK, _FigureCanvasGTK, _FigureManagerGTK, _NavigationToolbar2GTK,
-    TimerGTK as TimerGTK4,
-)
+from ._backend_gtk import (_BackendGTK, _FigureCanvasGTK, _FigureManagerGTK,
+                           _NavigationToolbar2GTK)
+from ._backend_gtk import TimerGTK as TimerGTK4  # noqa: F401 # pylint: disable=W0611
 
 _GOBJECT_GE_3_47 = gi.version_info >= (3, 47, 0)
 _GTK_GE_4_12 = Gtk.check_version(4, 12, 0) is None

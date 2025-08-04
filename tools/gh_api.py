@@ -223,9 +223,9 @@ def encode_multipart_formdata(fields, boundary=None):
     """
     # copy requests imports in here:
     from io import BytesIO
-    from requests.packages.urllib3.filepost import (
-        choose_boundary, writer, b, get_content_type
-    )
+
+    from requests.packages.urllib3.filepost import (b, choose_boundary,
+                                                    get_content_type, writer)
     body = BytesIO()
     if boundary is None:
         boundary = choose_boundary()

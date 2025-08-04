@@ -1,16 +1,15 @@
-import numpy as np
-
 import pytest
 
 import matplotlib.pyplot as plt
+import numpy as np
+
 import matplotlib.projections as mprojections
-import matplotlib.transforms as mtransforms
 from matplotlib.testing.decorators import image_comparison
-from mpl_toolkits.axisartist.axislines import Subplot
-from mpl_toolkits.axisartist.floating_axes import (
-    FloatingAxes, GridHelperCurveLinear)
-from mpl_toolkits.axisartist.grid_finder import FixedLocator
+import matplotlib.transforms as mtransforms
 from mpl_toolkits.axisartist import angle_helper
+from mpl_toolkits.axisartist.axislines import Subplot
+from mpl_toolkits.axisartist.floating_axes import FloatingAxes, GridHelperCurveLinear
+from mpl_toolkits.axisartist.grid_finder import FixedLocator
 
 
 def test_subplot():

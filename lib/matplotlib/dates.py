@@ -178,12 +178,12 @@ import functools
 import logging
 import re
 
-from dateutil.rrule import (rrule, MO, TU, WE, TH, FR, SA, SU, YEARLY,
-                            MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY,
-                            SECONDLY)
-from dateutil.relativedelta import relativedelta
 import dateutil.parser
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import (DAILY, FR, HOURLY, MINUTELY, MO, MONTHLY, SA, SECONDLY, SU,
+                            TH, TU, WE, WEEKLY, YEARLY, rrule)
 import dateutil.tz
+
 import numpy as np
 
 import matplotlib as mpl

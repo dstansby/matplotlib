@@ -1,7 +1,9 @@
+import pytest
+
+import matplotlib.pyplot as plt
+
 import matplotlib
 import matplotlib.gridspec as gridspec
-import matplotlib.pyplot as plt
-import pytest
 
 
 def test_equal():

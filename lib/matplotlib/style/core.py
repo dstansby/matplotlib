@@ -11,13 +11,11 @@ Core functions and attributes for the matplotlib style library:
     A dictionary of style names and matplotlib settings.
 """
 
+from . import USER_LIBRARY_PATHS, available, context, library, reload_library, use
+from . import _BASE_LIBRARY_PATH as BASE_LIBRARY_PATH
+from . import _STYLE_BLACKLIST as STYLE_BLACKLIST
+from . import _STYLE_EXTENSION as STYLE_EXTENSION
 from .. import _api
-from . import (
-    use, context, available, library, reload_library, USER_LIBRARY_PATHS,
-    _BASE_LIBRARY_PATH as BASE_LIBRARY_PATH,
-    _STYLE_EXTENSION as STYLE_EXTENSION,
-    _STYLE_BLACKLIST as STYLE_BLACKLIST,
-)
 
 __all__ = [
     "use", "context", "available", "library", "reload_library",

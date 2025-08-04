@@ -8,9 +8,10 @@ See also :mod:`matplotlib.tests.test_widgets`.
 
 from unittest import mock
 
-from matplotlib import _api
-from matplotlib.backend_bases import MouseEvent, KeyEvent
 import matplotlib.pyplot as plt
+
+from matplotlib import _api
+from matplotlib.backend_bases import KeyEvent, MouseEvent
 
 
 def get_ax():

@@ -19,23 +19,21 @@ import warnings
 import numpy as np
 
 import matplotlib as mpl
-from matplotlib import _api, cbook, _docstring, _preprocess_data
+from matplotlib import _api, _docstring, _preprocess_data, cbook
 import matplotlib.artist as martist
+from matplotlib.axes import Axes
+from matplotlib.axes._base import _axis_method_wrapper, _process_plot_format
 import matplotlib.collections as mcoll
 import matplotlib.colors as mcolors
+import matplotlib.container as mcontainer
 import matplotlib.image as mimage
 import matplotlib.lines as mlines
 import matplotlib.patches as mpatches
-import matplotlib.container as mcontainer
 import matplotlib.transforms as mtransforms
-from matplotlib.axes import Axes
-from matplotlib.axes._base import _axis_method_wrapper, _process_plot_format
 from matplotlib.transforms import Bbox
 from matplotlib.tri._triangulation import Triangulation
 
-from . import art3d
-from . import proj3d
-from . import axis3d
+from . import art3d, axis3d, proj3d
 
 
 @_docstring.interpd

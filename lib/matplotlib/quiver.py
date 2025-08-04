@@ -19,13 +19,12 @@ import math
 import numpy as np
 from numpy import ma
 
-from matplotlib import _api, cbook, _docstring
+from matplotlib import _api, _docstring, cbook
 import matplotlib.artist as martist
 import matplotlib.collections as mcollections
 from matplotlib.patches import CirclePolygon
 import matplotlib.text as mtext
 import matplotlib.transforms as transforms
-
 
 _quiver_doc = """
 Plot a 2D field of arrows.

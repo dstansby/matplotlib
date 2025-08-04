@@ -1,8 +1,7 @@
-from matplotlib import cbook, colorbar, colors, artist
-
 import numpy as np
 from numpy.typing import ArrayLike
 
+from matplotlib import artist, cbook, colorbar, colors
 
 class Colorizer:
     colorbar: colorbar.Colorbar | None

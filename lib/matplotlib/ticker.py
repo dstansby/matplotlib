@@ -131,8 +131,8 @@ and examples of using date locators and formatters.
 """
 
 import itertools
-import logging
 import locale
+import logging
 import math
 from numbers import Integral
 import string

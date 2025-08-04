@@ -3,10 +3,10 @@ The inset module defines the InsetIndicator class, which draws the rectangle and
 connectors required for `.Axes.indicate_inset` and `.Axes.indicate_inset_zoom`.
 """
 
-from . import _api, artist, transforms
 from matplotlib.patches import ConnectionPatch, PathPatch, Rectangle
 from matplotlib.path import Path
 
+from . import _api, artist, transforms
 
 _shared_properties = ('alpha', 'edgecolor', 'linestyle', 'linewidth')
 

@@ -1,28 +1,26 @@
 from collections.abc import Callable, Hashable, Iterable, Sequence
 import os
-from typing import Any, IO, Literal, TypeVar, overload
+from typing import IO, Any, Literal, TypeVar, overload
 
 import numpy as np
 from numpy.typing import ArrayLike
 
 from matplotlib.artist import Artist
 from matplotlib.axes import Axes
-from matplotlib.backend_bases import (
-    FigureCanvasBase,
-    MouseButton,
-    MouseEvent,
-    RendererBase,
-)
-from matplotlib.colors import Colormap, Normalize
-from matplotlib.colorbar import Colorbar
-from matplotlib.colorizer import ColorizingArtist, Colorizer
+from matplotlib.backend_bases import (FigureCanvasBase, MouseButton, MouseEvent,
+                                      RendererBase)
 from matplotlib.cm import ScalarMappable
-from matplotlib.gridspec import GridSpec, SubplotSpec, SubplotParams as SubplotParams
-from matplotlib.image import _ImageBase, FigureImage
+from matplotlib.colorbar import Colorbar
+from matplotlib.colorizer import Colorizer, ColorizingArtist
+from matplotlib.colors import Colormap, Normalize
+from matplotlib.gridspec import GridSpec
+from matplotlib.gridspec import SubplotParams as SubplotParams
+from matplotlib.gridspec import SubplotSpec
+from matplotlib.image import FigureImage, _ImageBase
 from matplotlib.layout_engine import LayoutEngine
 from matplotlib.legend import Legend
 from matplotlib.lines import Line2D
-from matplotlib.patches import Rectangle, Patch
+from matplotlib.patches import Patch, Rectangle
 from matplotlib.text import Text
 from matplotlib.transforms import Affine2D, Bbox, BboxBase, Transform
 from mpl_toolkits.mplot3d import Axes3D

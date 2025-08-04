@@ -5,8 +5,8 @@ import os
 from pathlib import Path
 from typing import Any, Literal
 
-from matplotlib._afm import AFM
 from matplotlib import ft2font
+from matplotlib._afm import AFM
 
 font_scalings: dict[str | None, float]
 stretch_dict: dict[str, int]

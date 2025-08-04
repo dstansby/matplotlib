@@ -3,6 +3,7 @@ font data tables for truetype and afm computer modern fonts
 """
 
 from __future__ import annotations
+
 from typing import overload
 
 latex_to_bakoma = {

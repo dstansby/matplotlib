@@ -31,17 +31,16 @@ __all__ = [
     "color_sequences",
 ]
 
-import os
-from pathlib import Path
-
 from collections.abc import Callable, Generator
 import contextlib
+import os
+from pathlib import Path
+from typing import Any, Literal, NamedTuple, overload
+
 from packaging.version import Version
 
 from matplotlib._api import MatplotlibDeprecationWarning
-from typing import Any, Literal, NamedTuple, overload
 from matplotlib.typing import LogLevel
-
 
 class _VersionInfo(NamedTuple):
     major: int
@@ -122,7 +121,7 @@ def _preprocess_data(
     label_namer: str | None = ...
 ) -> Callable: ...
 
+from matplotlib.cm import _bivar_colormaps as bivar_colormaps  # noqa: E402
 from matplotlib.cm import _colormaps as colormaps  # noqa: E402
 from matplotlib.cm import _multivar_colormaps as multivar_colormaps  # noqa: E402
-from matplotlib.cm import _bivar_colormaps as bivar_colormaps  # noqa: E402
 from matplotlib.colors import _color_sequences as color_sequences  # noqa: E402

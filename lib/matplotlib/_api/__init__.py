@@ -18,12 +18,10 @@ import re
 import sys
 import warnings
 
-from .deprecation import (  # noqa: F401
-    deprecated, warn_deprecated,
-    rename_parameter, delete_parameter, make_keyword_only,
-    deprecate_method_override, deprecate_privatize_attribute,
-    suppress_matplotlib_deprecation_warning,
-    MatplotlibDeprecationWarning)
+from .deprecation import (MatplotlibDeprecationWarning, delete_parameter,  # noqa: F401
+                          deprecate_method_override, deprecate_privatize_attribute,
+                          deprecated, make_keyword_only, rename_parameter,
+                          suppress_matplotlib_deprecation_warning, warn_deprecated)
 
 
 # A sentinel value for optional arguments, when None cannot be used as

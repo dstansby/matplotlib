@@ -186,17 +186,17 @@ import sys
 import textwrap
 import traceback
 
-from docutils.parsers.rst import directives, Directive
+from docutils.parsers.rst import Directive, directives
 from docutils.parsers.rst.directives.images import Image
 import jinja2  # Sphinx dependency.
-
 from sphinx.environment.collectors import EnvironmentCollector
 from sphinx.errors import ExtensionError
 
-import matplotlib
-from matplotlib.backend_bases import FigureManagerBase
 import matplotlib.pyplot as plt
+
+import matplotlib
 from matplotlib import _pylab_helpers, cbook
+from matplotlib.backend_bases import FigureManagerBase
 
 matplotlib.use("agg")
 

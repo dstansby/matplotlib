@@ -18,7 +18,6 @@ There are a number of options to this autoscaling behaviour, discussed below.
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 x = np.linspace(-2 * np.pi, 2 * np.pi, 100)
 y = np.sinc(x)
 

@@ -3,16 +3,21 @@ import itertools
 import logging
 import math
 from numbers import Integral, Number, Real
-
 import re
+
 import numpy as np
 
 import matplotlib as mpl
+from matplotlib import _api, _docstring, _preprocess_data
+from matplotlib.axes._base import (_AxesBase, _process_plot_format,
+                                   _TransformedBoundsLocator)
+from matplotlib.axes._secondary_axes import SecondaryAxis
 import matplotlib.category  # Register category unit converter as side effect.
 import matplotlib.cbook as cbook
 import matplotlib.collections as mcoll
 import matplotlib.colorizer as mcolorizer
 import matplotlib.colors as mcolors
+from matplotlib.container import BarContainer, ErrorbarContainer, StemContainer
 import matplotlib.contour as mcontour
 import matplotlib.dates  # noqa: F401, Register date unit converter as side effect.
 import matplotlib.image as mimage
@@ -30,14 +35,9 @@ import matplotlib.table as mtable
 import matplotlib.text as mtext
 import matplotlib.ticker as mticker
 import matplotlib.transforms as mtransforms
+from matplotlib.transforms import _ScaledRotation
 import matplotlib.tri as mtri
 import matplotlib.units as munits
-from matplotlib import _api, _docstring, _preprocess_data
-from matplotlib.axes._base import (
-    _AxesBase, _TransformedBoundsLocator, _process_plot_format)
-from matplotlib.axes._secondary_axes import SecondaryAxis
-from matplotlib.container import BarContainer, ErrorbarContainer, StemContainer
-from matplotlib.transforms import _ScaledRotation
 
 _log = logging.getLogger(__name__)
 

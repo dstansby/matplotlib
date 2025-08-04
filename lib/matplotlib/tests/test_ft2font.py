@@ -1,17 +1,18 @@
-import itertools
 import io
+import itertools
 from pathlib import Path
 
-import numpy as np
 import pytest
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 import matplotlib as mpl
 from matplotlib import ft2font
-from matplotlib.testing import _gen_multi_font_text
-from matplotlib.testing.decorators import image_comparison
 import matplotlib.font_manager as fm
 import matplotlib.path as mpath
-import matplotlib.pyplot as plt
+from matplotlib.testing import _gen_multi_font_text
+from matplotlib.testing.decorators import image_comparison
 
 
 def test_ft2image_draw_rect_filled():
