@@ -75,6 +75,7 @@ def mpl_to_gtk_cursor_name(mpl_cursor):
         Cursors.WAIT: "wait",
         Cursors.RESIZE_HORIZONTAL: "ew-resize",
         Cursors.RESIZE_VERTICAL: "ns-resize",
+        Cursors.RESIZE: "all-resize",
     }, cursor=mpl_cursor)
 
 

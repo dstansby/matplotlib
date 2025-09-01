@@ -83,6 +83,7 @@ cursord = {
         (cursors.WAIT, "WaitCursor"),
         (cursors.RESIZE_HORIZONTAL, "SizeHorCursor"),
         (cursors.RESIZE_VERTICAL, "SizeVerCursor"),
+        (cursors.RESIZE, "SizeAllCursor"),
     ]
 }
 

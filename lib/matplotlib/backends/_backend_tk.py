@@ -63,6 +63,7 @@ cursord = {
     cursors.WAIT: "watch",
     cursors.RESIZE_HORIZONTAL: "sb_h_double_arrow",
     cursors.RESIZE_VERTICAL: "sb_v_double_arrow",
+    cursors.RESIZE: "fleur",
 }
 
 

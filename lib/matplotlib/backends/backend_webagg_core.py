@@ -210,6 +210,7 @@ class FigureCanvasWebAggCore(backend_agg.FigureCanvasAgg):
             backend_tools.Cursors.WAIT: 'wait',
             backend_tools.Cursors.RESIZE_HORIZONTAL: 'ew-resize',
             backend_tools.Cursors.RESIZE_VERTICAL: 'ns-resize',
+            backend_tools.Cursors.RESIZE: 'resize',
         }, cursor=cursor)
         self.send_event('cursor', cursor=cursor)
 

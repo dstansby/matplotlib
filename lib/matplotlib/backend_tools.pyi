@@ -16,6 +16,7 @@ class Cursors(enum.IntEnum):
     WAIT = cast(int, ...)
     RESIZE_HORIZONTAL = cast(int, ...)
     RESIZE_VERTICAL = cast(int, ...)
+    RESIZE = cast(int, ...)
 
 cursors = Cursors
 

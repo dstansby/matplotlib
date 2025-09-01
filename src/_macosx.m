@@ -448,6 +448,10 @@ FigureCanvas_set_cursor(PyObject* unused, PyObject* args)
       case 5: break;
       case 6: [[NSCursor resizeLeftRightCursor] set]; break;
       case 7: [[NSCursor resizeUpDownCursor] set]; break;
+      /* macOS doesn't have a general resize cursor, crosshair is the best
+      built in approximation: https://developer.apple.com/documentation/appkit/nscursor
+      TODO: set a custom cursor icon if possible? */
+      case 8: [[NSCursor crosshairCursor] set]; break;
       default: return NULL;
     }
     Py_RETURN_NONE;

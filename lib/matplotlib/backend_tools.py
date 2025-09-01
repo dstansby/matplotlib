@@ -35,6 +35,8 @@ class Cursors(enum.IntEnum):  # Must subclass int for the macOS backend.
     WAIT = enum.auto()
     RESIZE_HORIZONTAL = enum.auto()
     RESIZE_VERTICAL = enum.auto()
+    RESIZE = enum.auto()
+
 cursors = Cursors  # Backcompat.
 
 
